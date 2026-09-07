@@ -17,7 +17,6 @@ type EducationItem = {
   period: string;
   detail: string;
   links: Link[];
-  needsFactualUpdate?: boolean;
 };
 
 type PracticeGroup = {
@@ -131,15 +130,13 @@ export const aboutPage = {
       ],
     },
     {
-      qualification: "Study and thesis work in classification methods",
+      qualification: "Master’s degree in Computer Science",
       institution: "Ca’ Foscari University of Venice",
-      period: "2022",
-      detail:
-        "The thesis, A comparison of classification algorithms, formed an earlier part of my move into data science and machine learning.",
-      needsFactualUpdate: true,
+      period: "2022/2023",
+      detail: "My thesis was titled A comparison of classification algorithms.",
       links: [
         {
-          label: "University thesis record",
+          label: "Official UNITesi record",
           url: "https://unitesi.unive.it/handle/20.500.14247/11685",
         },
       ],
@@ -238,7 +235,7 @@ export const aboutPage = {
     {
       subject: "Ca’ Foscari thesis record",
       url: "https://unitesi.unive.it/handle/20.500.14247/11685",
-      purpose: "Author, thesis title, institution, and completion date.",
+      purpose: "Author, thesis title, academic year, course of study, and degree level.",
     },
     {
       subject: "ANCHOR case-study sources",
