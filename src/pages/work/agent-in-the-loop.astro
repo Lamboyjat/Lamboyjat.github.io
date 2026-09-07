@@ -1,0 +1,1332 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { agentInTheLoopCaseStudy as caseStudy } from "../../data/agent-in-the-loop-case-study";
+
+const title = "Agent-in-the-Loop case study | Lamin Jatta";
+const description =
+  "My work on an evaluated AI-agent workflow for control-oriented simulation, FMU tool use, and multi-step engineering experiments.";
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="agent-study">
+    <header class="agent-hero">
+      <div class="agent-hero-copy">
+        <a class="back-link" href="/#selected-work">← Selected work</a>
+        <p class="eyebrow">Research software case study · Agent execution and evaluation</p>
+        <h1>{caseStudy.title}</h1>
+        <p class="paper-title">{caseStudy.paperTitle}</p>
+        <p class="hero-statement">{caseStudy.problemStatement}</p>
+        <div class="hero-actions" aria-label="Agent-in-the-Loop source links">
+          {caseStudy.heroLinks.map((link, index) => (
+            <a
+              class:list={["button", index === 0 ? "button-primary" : "button-secondary"]}
+              href={link.url}
+              target="_blank"
+              rel="noopener"
+            >
+              {link.label} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <aside class="hero-frame" aria-label="Project context">
+        <p class="frame-label">Project frame</p>
+        <dl>
+          <div>
+            <dt>Role</dt>
+            <dd>{caseStudy.role}</dd>
+          </div>
+          <div>
+            <dt>Context</dt>
+            <dd>{caseStudy.context}</dd>
+          </div>
+          <div>
+            <dt>Period</dt>
+            <dd>{caseStudy.period}</dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd>Tool execution, FMU simulation, and evaluator design</dd>
+          </div>
+        </dl>
+      </aside>
+    </header>
+
+    <section class="content-section problem-section" aria-labelledby="problem-title">
+      <div class="section-marker">
+        <span>01</span>
+        <p>The problem</p>
+      </div>
+      <div class="section-body">
+        <h2 id="problem-title">{caseStudy.problem.title}</h2>
+        <div class="problem-copy">
+          {caseStudy.problem.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <div class="pressure-grid">
+          {caseStudy.problem.pressures.map((pressure) => (
+            <article>
+              <h3>{pressure.title}</h3>
+              <p>{pressure.detail}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="execution-panel" aria-labelledby="workflow-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">02 · How the system works</p>
+          <h2 id="workflow-title">{caseStudy.workflow.title}</h2>
+        </div>
+        <p>{caseStudy.workflow.introduction}</p>
+      </div>
+
+      <ol class="execution-loop">
+        {caseStudy.workflow.stages.map((stage) => (
+          <li>
+            <span class="stage-index" aria-hidden="true">{stage.index}</span>
+            <h3>{stage.title}</h3>
+            <p>{stage.detail}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="feedback-line">
+        <span aria-hidden="true">↺</span>
+        <div>
+          <p class="feedback-label">Feedback into the next action</p>
+          <p>{caseStudy.workflow.feedback}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section contribution-section" aria-labelledby="contribution-title">
+      <div class="section-marker">
+        <span>03</span>
+        <p>My contribution</p>
+      </div>
+      <div class="section-body">
+        <div class="section-introduction">
+          <h2 id="contribution-title">What I worked on</h2>
+          <p>{caseStudy.collaboration.introduction}</p>
+        </div>
+
+        <div class="collaboration-grid" aria-label="Collaboration boundaries">
+          <article>
+            <h3>Published work</h3>
+            <p>{caseStudy.collaboration.publishedWork}</p>
+          </article>
+          <article>
+            <h3>Current repository</h3>
+            <p>{caseStudy.collaboration.currentRepository}</p>
+          </article>
+          <article>
+            <h3>Separate branch work</h3>
+            <p>{caseStudy.collaboration.branchWork}</p>
+          </article>
+        </div>
+
+        <div class="contribution-ledger">
+          {caseStudy.contributions.map((area) => (
+            <article>
+              <header>
+                <span aria-hidden="true">{area.index}</span>
+                <div>
+                  <p>{area.scope}</p>
+                  <h3>{area.title}</h3>
+                </div>
+              </header>
+              <dl>
+                <div>
+                  <dt>Problem</dt>
+                  <dd>{area.problem}</dd>
+                </div>
+                <div>
+                  <dt>What I did</dt>
+                  <dd>{area.work}</dd>
+                </div>
+                <div>
+                  <dt>Why it mattered</dt>
+                  <dd>{area.significance}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="decisions-section" aria-labelledby="decisions-title">
+      <div class="decisions-heading">
+        <p class="eyebrow">04 · Engineering decisions</p>
+        <h2 id="decisions-title">Engineering decisions</h2>
+      </div>
+      <div class="decision-grid">
+        {caseStudy.decisions.map((decision, index) => (
+          <article>
+            <span class="decision-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3>{decision.title}</h3>
+            <p>{decision.decision}</p>
+            <div>
+              <h4>Trade-off</h4>
+              <p>{decision.tradeoff}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="evaluation-panel" aria-labelledby="evaluation-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">05 · Experiments and evaluation</p>
+          <h2 id="evaluation-title">{caseStudy.evaluation.title}</h2>
+        </div>
+        <p>{caseStudy.evaluation.introduction}</p>
+      </div>
+
+      <ol class="experiment-list">
+        {caseStudy.evaluation.experiments.map((experiment) => (
+          <li>
+            <span aria-hidden="true">{experiment.index}</span>
+            <h3>{experiment.name}</h3>
+            <p>{experiment.task}</p>
+            <p class="experiment-check">{experiment.checks}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="result-grid">
+        <article>
+          <p class="result-label">Reported result</p>
+          <p>{caseStudy.evaluation.result}</p>
+        </article>
+        <article>
+          <p class="result-label">What the trace showed</p>
+          <p>{caseStudy.evaluation.interpretation}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="limits-section" aria-labelledby="limits-title">
+      <div class="limits-heading">
+        <p class="eyebrow">06 · Limitations</p>
+        <h2 id="limits-title">{caseStudy.limitations.title}</h2>
+      </div>
+      <div class="limits-grid">
+        {caseStudy.limitations.items.map((item, index) => (
+          <article>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <h3>{item.title}</h3>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="relationship-section" aria-labelledby="relationship-title">
+      <div class="relationship-heading">
+        <div>
+          <p class="eyebrow">07 · Research and software</p>
+          <h2 id="relationship-title">{caseStudy.relationship.title}</h2>
+        </div>
+        <p>{caseStudy.relationship.conclusion}</p>
+      </div>
+      <div class="relationship-grid">
+        <article>
+          <p class="relationship-label">Published experiment</p>
+          <p>{caseStudy.relationship.paper}</p>
+        </article>
+        <article>
+          <p class="relationship-label">Current main branch</p>
+          <p>{caseStudy.relationship.current}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section technology-section" aria-labelledby="technology-title">
+      <div class="section-marker">
+        <span>08</span>
+        <p>Technology</p>
+      </div>
+      <div class="section-body">
+        <div class="section-introduction">
+          <h2 id="technology-title">Technology and methods</h2>
+          <p>The tools are grouped by the part of the execution and evaluation loop they support.</p>
+        </div>
+        <div class="technology-grid">
+          {caseStudy.technology.map((group) => (
+            <article>
+              <h3>{group.role}</h3>
+              <p>{group.purpose}</p>
+              <ul aria-label={`${group.role} technologies and methods`}>
+                {group.technologies.map((technology) => <li>{technology}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="sources-section" aria-labelledby="sources-title">
+      <div class="sources-heading">
+        <div>
+          <p class="eyebrow">09 · Project references</p>
+          <h2 id="sources-title">Sources and references</h2>
+        </div>
+        <p>The paper, conference record, software, and project context are available publicly.</p>
+      </div>
+      <ul class="source-list">
+        {caseStudy.sources.map((source, index) => (
+          <li>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <a href={source.url} target="_blank" rel="noopener">
+                {source.label} <span aria-hidden="true">↗</span>
+              </a>
+              {source.note && <p>{source.note}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .agent-study {
+    padding-bottom: clamp(3rem, 8vw, 7rem);
+  }
+
+  .agent-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.22fr) minmax(20rem, 0.58fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: end;
+    padding-block: clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .agent-hero-copy,
+  .hero-frame,
+  .section-body,
+  .panel-heading > *,
+  .section-introduction > *,
+  .relationship-heading > *,
+  .sources-heading > * {
+    min-width: 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--accent-dark);
+  }
+
+  .agent-hero h1 {
+    max-width: 9ch;
+    margin-bottom: 0;
+    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-weight: 760;
+    letter-spacing: -0.08em;
+    line-height: 0.82;
+  }
+
+  .paper-title {
+    max-width: 46rem;
+    margin: 1.8rem 0 0;
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: clamp(0.86rem, 1.4vw, 1.05rem);
+    font-weight: 720;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+  }
+
+  .hero-statement {
+    max-width: 47rem;
+    margin: 2rem 0 0;
+    color: var(--ink-soft);
+    font-size: clamp(1.08rem, 1.8vw, 1.35rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero-frame {
+    position: relative;
+    padding: 1.75rem;
+    border: 1px solid var(--line-strong);
+    border-top: 4px solid var(--accent);
+    background: rgba(255, 255, 255, 0.62);
+  }
+
+  .hero-frame::before {
+    position: absolute;
+    top: -0.55rem;
+    right: 1.5rem;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: -1.15rem 0 0 var(--paper), -2.3rem 0 0 var(--paper);
+    content: "";
+  }
+
+  .frame-label,
+  .section-marker p,
+  .feedback-label,
+  .contribution-ledger header p,
+  .relationship-label,
+  .result-label {
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .frame-label {
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-frame dl {
+    margin: 0;
+  }
+
+  .hero-frame dl div {
+    display: grid;
+    grid-template-columns: minmax(5rem, 0.32fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero-frame dt {
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .hero-frame dd {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  .content-section {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.22fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    padding-block: clamp(5rem, 10vw, 9rem);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .section-marker {
+    padding-top: 0.45rem;
+  }
+
+  .section-marker > span {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .section-marker p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .section-body > h2,
+  .section-introduction h2,
+  .panel-heading h2,
+  .decisions-heading h2,
+  .limits-heading h2,
+  .relationship-heading h2,
+  .sources-heading h2 {
+    margin-bottom: 0;
+    font-size: clamp(2.75rem, 5.6vw, 5.6rem);
+  }
+
+  .problem-copy {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+    max-width: 67rem;
+    margin-top: 2.5rem;
+  }
+
+  .problem-copy p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .pressure-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 4rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .pressure-grid article {
+    min-width: 0;
+    padding: 1.5rem 1.5rem 0 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .pressure-grid article + article {
+    padding-left: 1.5rem;
+  }
+
+  .pressure-grid article:last-child {
+    border-right: 0;
+  }
+
+  .pressure-grid h3 {
+    font-size: 1.1rem;
+  }
+
+  .pressure-grid p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .execution-panel,
+  .evaluation-panel {
+    margin-block: clamp(2rem, 5vw, 5rem);
+    padding: clamp(2.5rem, 6vw, 5.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .panel-heading,
+  .section-introduction,
+  .relationship-heading,
+  .sources-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.62fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: end;
+  }
+
+  .panel-heading .eyebrow,
+  .evaluation-panel .eyebrow {
+    color: #8ed4d7;
+  }
+
+  .panel-heading > p {
+    margin: 0;
+    color: #cad3d8;
+  }
+
+  .execution-loop {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 4rem 0 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    list-style: none;
+  }
+
+  .execution-loop li {
+    position: relative;
+    min-width: 0;
+    padding: 1.6rem 1.25rem 0 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .execution-loop li + li {
+    padding-left: 1.25rem;
+  }
+
+  .execution-loop li:last-child {
+    border-right: 0;
+  }
+
+  .stage-index {
+    color: #8ed4d7;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .execution-loop h3 {
+    margin: 1.45rem 0 1rem;
+    font-size: 1.18rem;
+  }
+
+  .execution-loop p {
+    margin: 0;
+    color: #cad3d8;
+    font-size: 0.9rem;
+  }
+
+  .feedback-line {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .feedback-line > span {
+    color: #8ed4d7;
+    font-size: 2.25rem;
+    line-height: 1;
+  }
+
+  .feedback-line p {
+    margin: 0;
+    color: #cad3d8;
+  }
+
+  .feedback-line .feedback-label {
+    margin-bottom: 0.5rem;
+    color: #8ed4d7;
+  }
+
+  .section-introduction > p,
+  .relationship-heading > p,
+  .sources-heading > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .collaboration-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 3.5rem;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+
+  .collaboration-grid article {
+    min-width: 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.68);
+  }
+
+  .collaboration-grid h3 {
+    font-size: 1rem;
+  }
+
+  .collaboration-grid p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .contribution-ledger {
+    margin-top: 4rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .contribution-ledger > article {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.45fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    padding-block: 2.5rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .contribution-ledger header {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+    min-width: 0;
+  }
+
+  .contribution-ledger header > span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .contribution-ledger header p {
+    margin-bottom: 0.65rem;
+  }
+
+  .contribution-ledger h3 {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+  }
+
+  .contribution-ledger dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .contribution-ledger dl div {
+    min-width: 0;
+  }
+
+  .contribution-ledger dt,
+  .technology-grid h3 {
+    margin-bottom: 0.6rem;
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .contribution-ledger dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .decisions-section,
+  .limits-section,
+  .relationship-section {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  .decisions-heading,
+  .limits-heading {
+    max-width: 55rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+
+  .decision-grid article {
+    min-width: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: rgba(255, 255, 255, 0.58);
+  }
+
+  .decision-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .decision-grid h3 {
+    margin: 1.5rem 0 1rem;
+    font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  }
+
+  .decision-grid article > p,
+  .decision-grid article div p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+  }
+
+  .decision-grid article div {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .decision-grid h4 {
+    margin: 0 0 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .evaluation-panel {
+    margin-bottom: 0;
+  }
+
+  .experiment-list {
+    margin: 4rem 0 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    list-style: none;
+  }
+
+  .experiment-list li {
+    display: grid;
+    grid-template-columns: 3rem minmax(11rem, 0.48fr) minmax(0, 1fr) minmax(11rem, 0.48fr);
+    gap: clamp(1rem, 3vw, 3rem);
+    align-items: start;
+    padding-block: 1.35rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .experiment-list li > * {
+    min-width: 0;
+  }
+
+  .experiment-list li > span {
+    color: #8ed4d7;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .experiment-list h3,
+  .experiment-list p {
+    margin: 0;
+  }
+
+  .experiment-list h3 {
+    font-size: 1.05rem;
+  }
+
+  .experiment-list p {
+    color: #cad3d8;
+    font-size: 0.9rem;
+  }
+
+  .experiment-list .experiment-check {
+    color: #8ed4d7;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 3.5rem;
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .result-grid article {
+    min-width: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: #102330;
+  }
+
+  .result-grid .result-label {
+    color: #8ed4d7;
+  }
+
+  .result-grid article > p:last-child {
+    margin: 0;
+    color: #cad3d8;
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  }
+
+  .limits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+
+  .limits-grid article {
+    min-width: 0;
+    padding: 1.75rem 1.75rem 0 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .limits-grid article + article {
+    padding-left: 1.75rem;
+  }
+
+  .limits-grid article:last-child {
+    border-right: 0;
+  }
+
+  .limits-grid span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .limits-grid h3 {
+    margin: 1.4rem 0 0.8rem;
+    font-size: 1.2rem;
+  }
+
+  .limits-grid p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .relationship-section {
+    border-block: 1px solid var(--line-strong);
+  }
+
+  .relationship-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 4rem;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+
+  .relationship-grid article {
+    min-width: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: rgba(255, 255, 255, 0.62);
+  }
+
+  .relationship-grid article > p:last-child {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  .technology-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 4rem;
+  }
+
+  .technology-grid article {
+    min-width: 0;
+    padding: 1.6rem;
+    border-top: 1px solid var(--ink);
+    background: rgba(255, 255, 255, 0.42);
+  }
+
+  .technology-grid p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .technology-grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .technology-grid li {
+    padding: 0.34rem 0.58rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .sources-section {
+    margin-top: clamp(2rem, 5vw, 5rem);
+    padding: clamp(2.5rem, 6vw, 5.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .sources-section .eyebrow {
+    color: #8ed4d7;
+  }
+
+  .sources-heading > p {
+    color: #cad3d8;
+  }
+
+  .source-list {
+    margin: 4rem 0 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    list-style: none;
+  }
+
+  .source-list li {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1.3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .source-list li > span {
+    color: #8ed4d7;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .source-list a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    color: white;
+    font-weight: 720;
+  }
+
+  .source-list p {
+    margin: 0.35rem 0 0;
+    color: #9fb0ba;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 980px) {
+    .execution-loop {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .execution-loop li:nth-child(3) {
+      border-right: 0;
+    }
+
+    .execution-loop li:nth-child(n + 4) {
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .contribution-ledger > article {
+      grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1fr);
+    }
+
+    .contribution-ledger dl {
+      grid-template-columns: 1fr;
+    }
+
+    .experiment-list li {
+      grid-template-columns: 2.5rem minmax(10rem, 0.45fr) minmax(0, 1fr);
+    }
+
+    .experiment-check {
+      grid-column: 2 / -1;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .agent-hero,
+    .content-section,
+    .panel-heading,
+    .section-introduction,
+    .relationship-heading,
+    .sources-heading {
+      grid-template-columns: 1fr;
+    }
+
+    .agent-hero {
+      align-items: start;
+    }
+
+    .hero-frame {
+      max-width: 38rem;
+    }
+
+    .section-marker {
+      display: flex;
+      gap: 0.8rem;
+      align-items: baseline;
+      padding-top: 0;
+    }
+
+    .section-marker > span {
+      margin: 0;
+    }
+
+    .section-introduction,
+    .panel-heading,
+    .relationship-heading,
+    .sources-heading {
+      gap: 1.75rem;
+    }
+
+    .collaboration-grid,
+    .limits-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .collaboration-grid article {
+      padding: 1.35rem;
+    }
+
+    .limits-grid article,
+    .limits-grid article + article {
+      padding: 1.5rem 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .limits-grid article:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .agent-hero {
+      gap: 3rem;
+      padding-block: 2.5rem 4rem;
+    }
+
+    .back-link {
+      margin-bottom: 2.5rem;
+      font-size: 0.82rem;
+    }
+
+    .agent-hero h1 {
+      overflow-wrap: anywhere;
+    }
+
+    .paper-title,
+    .frame-label,
+    .section-marker p,
+    .feedback-label,
+    .contribution-ledger header p,
+    .relationship-label,
+    .result-label {
+      font-size: 0.78rem;
+    }
+
+    .hero-statement {
+      font-size: 1.05rem;
+    }
+
+    .hero-actions .button {
+      width: 100%;
+    }
+
+    .hero-frame {
+      padding: 1.25rem;
+    }
+
+    .hero-frame dl div {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .hero-frame dt {
+      font-size: 0.78rem;
+    }
+
+    .hero-frame dd {
+      font-size: 0.96rem;
+    }
+
+    .content-section {
+      gap: 2rem;
+      padding-block: 4.5rem;
+    }
+
+    .section-body > h2,
+    .section-introduction h2,
+    .panel-heading h2,
+    .decisions-heading h2,
+    .limits-heading h2,
+    .relationship-heading h2,
+    .sources-heading h2 {
+      font-size: clamp(2.35rem, 12vw, 3.5rem);
+    }
+
+    .problem-copy,
+    .pressure-grid,
+    .execution-loop,
+    .decision-grid,
+    .result-grid,
+    .relationship-grid,
+    .technology-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .problem-copy {
+      gap: 1.35rem;
+      margin-top: 2rem;
+    }
+
+    .problem-copy p {
+      font-size: 1rem;
+    }
+
+    .pressure-grid {
+      margin-top: 3rem;
+    }
+
+    .pressure-grid article,
+    .pressure-grid article + article {
+      padding: 1.3rem 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pressure-grid article:last-child {
+      border-bottom: 0;
+    }
+
+    .execution-panel,
+    .evaluation-panel,
+    .sources-section {
+      margin-inline: -0.625rem;
+      padding: 2.75rem 1.25rem;
+      border-radius: 0;
+    }
+
+    .execution-loop {
+      margin-top: 3rem;
+    }
+
+    .execution-loop li,
+    .execution-loop li + li,
+    .execution-loop li:nth-child(n + 4) {
+      margin: 0;
+      padding: 1.4rem 0;
+      border-top: 0;
+      border-right: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .execution-loop h3 {
+      margin: 0.8rem 0 0.6rem;
+    }
+
+    .execution-loop p {
+      font-size: 0.95rem;
+    }
+
+    .feedback-line {
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .feedback-line > span {
+      font-size: 1.8rem;
+    }
+
+    .collaboration-grid {
+      margin-top: 2.5rem;
+    }
+
+    .contribution-ledger {
+      margin-top: 3rem;
+    }
+
+    .contribution-ledger > article {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      padding-block: 2rem;
+    }
+
+    .contribution-ledger dl {
+      gap: 0;
+    }
+
+    .contribution-ledger dl div {
+      padding-block: 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .contribution-ledger dd {
+      font-size: 0.98rem;
+    }
+
+    .decisions-section,
+    .limits-section,
+    .relationship-section {
+      padding-block: 4.5rem;
+    }
+
+    .decisions-heading,
+    .limits-heading {
+      margin-bottom: 2.5rem;
+    }
+
+    .decision-grid article {
+      padding: 1.5rem;
+    }
+
+    .decision-grid article > p,
+    .decision-grid article div p,
+    .limits-grid p {
+      font-size: 0.98rem;
+    }
+
+    .experiment-list {
+      margin-top: 3rem;
+    }
+
+    .experiment-list li {
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.55rem 0.75rem;
+      padding-block: 1.35rem;
+    }
+
+    .experiment-list h3,
+    .experiment-list li > p {
+      grid-column: 2;
+    }
+
+    .experiment-list h3 {
+      font-size: 1.08rem;
+    }
+
+    .experiment-list p {
+      font-size: 0.95rem;
+    }
+
+    .experiment-list .experiment-check {
+      font-size: 0.78rem;
+    }
+
+    .result-grid {
+      margin-top: 2.5rem;
+    }
+
+    .result-grid article {
+      padding: 1.5rem;
+    }
+
+    .relationship-grid {
+      margin-top: 2.5rem;
+    }
+
+    .relationship-grid article {
+      padding: 1.5rem;
+    }
+
+    .technology-grid {
+      margin-top: 3rem;
+    }
+
+    .technology-grid li {
+      font-size: 0.76rem;
+    }
+
+    .source-list {
+      margin-top: 3rem;
+    }
+
+    .source-list li {
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+
+    .source-list p {
+      font-size: 0.9rem;
+    }
+  }
+</style>

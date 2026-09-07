@@ -1,0 +1,96 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import ProjectCard from "../components/ProjectCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import portrait from "../../pic/Lamin Jatta nr 1 färg.jpg";
+
+const projects = (await getCollection(
+  "projects",
+  ({ data }) => data.featured && data.verificationStatus === "verified",
+)).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">AI software developer · Data scientist · Researcher</p>
+      <h1 id="hero-title">I build AI systems that connect evidence, agents, and engineering workflows.</h1>
+      <p class="hero-intro">
+        I’m Lamin Jatta, a project researcher and software developer working across agentic AI,
+        document intelligence, RAG, knowledge systems, simulation, and applied machine learning.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#selected-work">Explore selected work</a>
+        <a class="button button-secondary" href="https://github.com/Lamboyjat" target="_blank" rel="me noopener">
+          View GitHub <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <dl class="hero-facts" aria-label="Professional focus">
+        <div>
+          <dt>Current focus</dt>
+          <dd>Agentic AI & document intelligence</dd>
+        </div>
+        <div>
+          <dt>Research context</dt>
+          <dd>Engineering and maritime systems</dd>
+        </div>
+      </dl>
+    </div>
+
+    <figure class="portrait-frame">
+      <div class="portrait-label" aria-hidden="true">
+        <span>Turku, Finland</span>
+        <span>Project researcher</span>
+      </div>
+      <Image
+        src={portrait}
+        alt="Portrait of Lamin Jatta"
+        width={860}
+        quality={82}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </figure>
+  </section>
+
+  <section class="selected-work" id="selected-work" aria-labelledby="selected-work-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2 id="selected-work-title">Systems, not technology lists.</h2>
+      </div>
+      <p>
+        Each case study starts with a technical problem and distinguishes my contribution from
+        the work of the wider research team.
+      </p>
+    </div>
+
+    <div class="project-list">
+      {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+    </div>
+  </section>
+
+  <section class="research-strip" id="research" aria-labelledby="research-title">
+    <p class="eyebrow">Research trajectory</p>
+    <div>
+      <h2 id="research-title">From domain-specific language systems to agent-driven engineering tools.</h2>
+      <p>
+        My work spans maritime speech transcription, multimodal engineering-document extraction,
+        source-grounded knowledge interfaces, and agents that execute and evaluate simulation tasks.
+      </p>
+    </div>
+    <a href="/research/">
+      Explore research <span aria-hidden="true">→</span>
+    </a>
+  </section>
+
+  <section class="about-preview" id="about" aria-labelledby="about-title">
+    <p class="eyebrow">Working principles</p>
+    <h2 id="about-title">Build for traceability. Evaluate the workflow. Keep the evidence visible.</h2>
+    <p>
+      The common thread is practical AI: systems where model outputs connect to source material,
+      executable tools, measurable behavior, and interfaces people can inspect.
+    </p>
+  </section>
+</BaseLayout>

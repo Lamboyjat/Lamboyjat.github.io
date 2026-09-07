@@ -1,0 +1,676 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { researchPage } from "../data/research";
+
+const title = "Research & Publications | Lamin Jatta";
+const description =
+  "Research by Lamin Jatta on maritime speech recognition, engineering document intelligence, and AI agents for control-oriented simulation workflows.";
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="research-page">
+    <header class="research-hero">
+      <div class="research-hero-heading">
+        <a class="research-back-link" href="/#research">← Home</a>
+        <p class="eyebrow">Research & publications</p>
+        <h1>My research follows problems that need working systems.</h1>
+      </div>
+      <div class="research-overview">
+        {researchPage.overview.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </header>
+
+    <section class="selected-research" aria-labelledby="selected-research-title">
+      <div class="section-intro">
+        <p class="eyebrow">Selected research</p>
+        <h2 id="selected-research-title">Language, documents, and simulation.</h2>
+        <p>
+          These three projects show how the work developed from language post-processing to
+          structured document extraction and tool-using agents.
+        </p>
+      </div>
+
+      <div class="research-list">
+        {researchPage.areas.map((area) => (
+          <article class="research-item" id={area.slug}>
+            <aside class="research-item-meta" aria-label={`${area.shortTitle} details`}>
+              <span class="research-index" aria-hidden="true">{area.index}</span>
+              <dl>
+                <div>
+                  <dt>Period</dt>
+                  <dd>{area.period}</dd>
+                </div>
+                <div>
+                  <dt>Role</dt>
+                  <dd>{area.role}</dd>
+                </div>
+                <div>
+                  <dt>Output</dt>
+                  <dd>{area.status}</dd>
+                </div>
+              </dl>
+            </aside>
+
+            <div class="research-item-content">
+              <header>
+                <p>{area.shortTitle}</p>
+                <h3>{area.title}</h3>
+              </header>
+
+              <div class="research-problem">
+                <h4>Research problem</h4>
+                <p>{area.problem}</p>
+              </div>
+
+              <div class="research-contribution">
+                <h4>What I worked on</h4>
+                <div>
+                  {area.contribution.map((paragraph) => <p>{paragraph}</p>)}
+                </div>
+              </div>
+
+              <div class="research-methods">
+                <h4>Methods and systems</h4>
+                <ul aria-label={`${area.shortTitle} methods and systems`}>
+                  {area.methods.map((method) => <li>{method}</li>)}
+                </ul>
+              </div>
+
+              <div class="research-outcome">
+                <h4>Result</h4>
+                <p>{area.outcome}</p>
+              </div>
+
+              <div class="research-links" aria-label={`${area.shortTitle} links`}>
+                {area.links.map((link) => (
+                  <a
+                    href={link.url}
+                    target={link.url.startsWith("http") ? "_blank" : undefined}
+                    rel={link.url.startsWith("http") ? "noopener" : undefined}
+                  >
+                    {link.label} <span aria-hidden="true">{link.url.startsWith("http") ? "↗" : "→"}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="publications-panel" aria-labelledby="publications-title">
+      <div class="publications-heading">
+        <div>
+          <p class="eyebrow">Publications and thesis</p>
+          <h2 id="publications-title">Published work</h2>
+        </div>
+        <p>
+          Authored research outputs with public bibliographic records. Repository links are
+          included where the software is part of the work.
+        </p>
+      </div>
+
+      <ol class="publication-list">
+        {researchPage.publications.map((publication) => (
+          <li>
+            <div class="publication-year">{publication.year}</div>
+            <div class="publication-record">
+              <p>{publication.type}</p>
+              <h3>{publication.title}</h3>
+              <p class="publication-authors">{publication.authors}</p>
+              <p class="publication-venue">{publication.venue}</p>
+            </div>
+            <div class="publication-links" aria-label={`${publication.title} links`}>
+              {publication.links.map((link) => (
+                <a href={link.url} target="_blank" rel="noopener">
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="research-to-engineering" aria-labelledby="engineering-title">
+      <div class="engineering-copy">
+        <p class="eyebrow">From research to engineering</p>
+        <h2 id="engineering-title">{researchPage.engineering.title}</h2>
+        <div>
+          {researchPage.engineering.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <a class="button button-primary" href="/work/anchor/">Read the ANCHOR case study</a>
+      </div>
+
+      <div class="engineering-themes">
+        {researchPage.engineering.themes.map((theme, index) => (
+          <article>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <h3>{theme.title}</h3>
+            <p>{theme.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .research-page {
+    padding-bottom: clamp(4rem, 9vw, 8rem);
+  }
+
+  .research-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(20rem, 0.62fr);
+    gap: clamp(3rem, 8vw, 7rem);
+    align-items: end;
+    padding-block: clamp(4.5rem, 9vw, 8rem) clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .research-back-link {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .research-back-link:hover {
+    color: var(--accent-dark);
+  }
+
+  .research-hero h1 {
+    max-width: 12ch;
+    margin-bottom: 0;
+    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-weight: 720;
+    letter-spacing: -0.065em;
+  }
+
+  .research-overview {
+    max-width: 34rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .research-overview p {
+    color: var(--ink-soft);
+    font-size: 1.07rem;
+  }
+
+  .research-overview p:last-child {
+    margin-bottom: 0;
+  }
+
+  .selected-research {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  .section-intro {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 0.9fr) minmax(18rem, 0.5fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .section-intro .eyebrow {
+    align-self: start;
+  }
+
+  .section-intro h2,
+  .publications-heading h2,
+  .engineering-copy h2 {
+    margin-bottom: 0;
+    font-size: clamp(2.7rem, 5.4vw, 5.2rem);
+  }
+
+  .section-intro > p:last-child,
+  .publications-heading > p {
+    margin-bottom: 0;
+    color: var(--ink-soft);
+  }
+
+  .research-list {
+    border-top: 1px solid var(--ink);
+  }
+
+  .research-item {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.34fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    padding-block: clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--line-strong);
+    scroll-margin-top: 2rem;
+  }
+
+  .research-item-meta {
+    display: grid;
+    align-content: start;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .research-index,
+  .publication-year,
+  .engineering-themes span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .research-item-meta dl {
+    margin: 0;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .research-item-meta dl div {
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .research-item-meta dt,
+  .research-item-content h4,
+  .publication-record > p:first-child {
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .research-item-meta dd {
+    margin: 0.3rem 0 0;
+    font-size: 0.94rem;
+    font-weight: 670;
+    line-height: 1.45;
+  }
+
+  .research-item-content > header {
+    margin-bottom: 3rem;
+  }
+
+  .research-item-content > header p {
+    margin-bottom: 0.75rem;
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .research-item-content > header h3 {
+    max-width: 21ch;
+    margin-bottom: 0;
+    font-size: clamp(2.2rem, 4.4vw, 4.4rem);
+  }
+
+  .research-problem,
+  .research-contribution,
+  .research-methods,
+  .research-outcome {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-block: 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .research-item-content h4 {
+    margin: 0;
+    color: var(--accent-dark);
+  }
+
+  .research-problem p,
+  .research-contribution p,
+  .research-outcome p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .research-contribution > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 3rem);
+  }
+
+  .research-methods ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .research-methods li {
+    padding: 0.36rem 0.62rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.42);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .research-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.25rem;
+    margin-top: 1.25rem;
+    padding-left: calc(28% + 4rem);
+  }
+
+  .research-links a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    color: var(--accent-dark);
+    font-size: 0.88rem;
+    font-weight: 750;
+  }
+
+  .publications-panel {
+    margin-block: clamp(1rem, 4vw, 4rem);
+    padding: clamp(2rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .publications-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 0.5fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .publications-heading .eyebrow,
+  .publication-year,
+  .publication-record > p:first-child,
+  .publication-links a {
+    color: #8ed4d7;
+  }
+
+  .publications-heading > p,
+  .publication-authors,
+  .publication-venue {
+    color: #cad3d8;
+  }
+
+  .publication-list {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    list-style: none;
+  }
+
+  .publication-list > li {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr) minmax(8rem, 0.24fr);
+    gap: clamp(1.25rem, 3vw, 3rem);
+    padding-block: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .publication-record > p:first-child {
+    margin-bottom: 0.6rem;
+  }
+
+  .publication-record h3 {
+    max-width: 43rem;
+    margin-bottom: 0.9rem;
+    font-size: clamp(1.35rem, 2.5vw, 2.25rem);
+  }
+
+  .publication-authors,
+  .publication-venue {
+    margin-bottom: 0.35rem;
+    font-size: 0.92rem;
+  }
+
+  .publication-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    align-content: start;
+    justify-content: flex-end;
+  }
+
+  .publication-links a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    font-size: 0.82rem;
+    font-weight: 750;
+  }
+
+  .research-to-engineering {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 0.52fr);
+    gap: clamp(3rem, 8vw, 7rem);
+    padding-block: clamp(6rem, 11vw, 10rem) clamp(2rem, 5vw, 4rem);
+  }
+
+  .engineering-copy h2 {
+    max-width: 14ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .engineering-copy > div {
+    max-width: 48rem;
+  }
+
+  .engineering-copy > div p {
+    color: var(--ink-soft);
+    font-size: 1.04rem;
+  }
+
+  .engineering-copy .button {
+    margin-top: 1.25rem;
+  }
+
+  .engineering-themes {
+    align-self: end;
+    border-top: 1px solid var(--ink);
+  }
+
+  .engineering-themes article {
+    display: grid;
+    grid-template-columns: 2rem minmax(8rem, 0.45fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .engineering-themes h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .engineering-themes p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 940px) {
+    .research-hero,
+    .section-intro,
+    .publications-heading,
+    .research-to-engineering {
+      grid-template-columns: 1fr;
+    }
+
+    .research-item {
+      grid-template-columns: minmax(10rem, 0.28fr) minmax(0, 1fr);
+      gap: 2.5rem;
+    }
+
+    .research-links {
+      padding-left: calc(28% + 1.5rem);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .research-hero {
+      gap: 3rem;
+      padding-block: 3.5rem 4rem;
+    }
+
+    .research-back-link {
+      margin-bottom: 2.25rem;
+      font-size: 0.82rem;
+    }
+
+    .section-intro h2,
+    .publications-heading h2,
+    .engineering-copy h2 {
+      font-size: clamp(2.5rem, 12vw, 3.8rem);
+    }
+
+    .research-item {
+      grid-template-columns: 1fr;
+      gap: 2.75rem;
+      padding-block: 4.75rem;
+    }
+
+    .research-item-meta {
+      display: block;
+    }
+
+    .research-index {
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .research-item-meta dl {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .research-item-meta dl div {
+      display: grid;
+      grid-template-columns: 4.5rem minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.68rem 0;
+    }
+
+    .research-item-meta dl div:last-child {
+      grid-column: auto;
+    }
+
+    .research-item-meta dt {
+      padding-top: 0.08rem;
+      font-size: 0.7rem;
+    }
+
+    .research-item-meta dd {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .research-item-content > header {
+      margin-bottom: 2.4rem;
+    }
+
+    .research-problem,
+    .research-contribution,
+    .research-methods,
+    .research-outcome,
+    .research-contribution > div {
+      grid-template-columns: 1fr;
+    }
+
+    .research-problem,
+    .research-contribution,
+    .research-methods,
+    .research-outcome {
+      gap: 0.75rem;
+      padding-block: 1.9rem;
+    }
+
+    .research-problem p,
+    .research-contribution p,
+    .research-outcome p {
+      line-height: 1.68;
+    }
+
+    .research-contribution > div {
+      gap: 1.4rem;
+    }
+
+    .research-methods li {
+      font-size: 0.76rem;
+    }
+
+    .research-links {
+      gap: 0.65rem 1.1rem;
+      margin-top: 1.75rem;
+      padding-left: 0;
+    }
+
+    .research-links a {
+      font-size: 0.92rem;
+    }
+
+    .publications-panel {
+      margin-inline: -0.35rem;
+      padding: 2rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .publications-heading {
+      gap: 1.4rem;
+      margin-bottom: 2.75rem;
+    }
+
+    .publication-list > li {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      padding-block: 2.35rem;
+    }
+
+    .publication-record h3 {
+      margin-bottom: 1rem;
+      font-size: clamp(1.55rem, 7.5vw, 2rem);
+    }
+
+    .publication-authors,
+    .publication-venue {
+      line-height: 1.55;
+    }
+
+    .publication-links {
+      grid-column: auto;
+      gap: 0.65rem 1rem;
+      justify-content: flex-start;
+      margin-top: 0.4rem;
+    }
+
+    .engineering-themes article {
+      grid-template-columns: 2rem minmax(0, 1fr);
+    }
+
+    .engineering-themes p {
+      grid-column: 2;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .research-item-meta dl div {
+      grid-template-columns: 4.2rem minmax(0, 1fr);
+    }
+  }
+</style>

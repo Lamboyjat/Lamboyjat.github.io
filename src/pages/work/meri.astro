@@ -1,0 +1,1117 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { meriCaseStudy as caseStudy } from "../../data/meri-case-study";
+
+const title = "MERI case study | Lamin Jatta";
+const description =
+  "My contribution to MERI, a collaborative research system for extracting parameters and source locations from mixed-layout engineering documents.";
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="meri-study">
+    <header class="meri-hero">
+      <div class="meri-hero-copy">
+        <a class="back-link" href="/#selected-work">← Selected work</a>
+        <p class="eyebrow">Research software case study · Document intelligence</p>
+        <h1>{caseStudy.title}</h1>
+        <p class="full-name">{caseStudy.fullName}</p>
+        <p class="hero-statement">{caseStudy.problemStatement}</p>
+        <div class="hero-actions" aria-label="MERI source links">
+          {caseStudy.heroLinks.map((link, index) => (
+            <a
+              class:list={["button", index === 0 ? "button-primary" : "button-secondary"]}
+              href={link.url}
+              target="_blank"
+              rel="noopener"
+            >
+              {link.label} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="hero-context">
+        <p class="paper-label">Published research</p>
+        <p class="paper-title">{caseStudy.paperTitle}</p>
+        <dl>
+          <div>
+            <dt>Role</dt>
+            <dd>{caseStudy.role}</dd>
+          </div>
+          <div>
+            <dt>Context</dt>
+            <dd>{caseStudy.context}</dd>
+          </div>
+          <div>
+            <dt>Period</dt>
+            <dd>{caseStudy.period}</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="content-section problem-section" aria-labelledby="problem-title">
+      <div class="section-marker">
+        <span>01</span>
+        <p>The problem</p>
+      </div>
+      <div class="section-body">
+        <h2 id="problem-title">{caseStudy.problem.title}</h2>
+        <div class="problem-copy">
+          {caseStudy.problem.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <div class="constraint-grid">
+          {caseStudy.problem.constraints.map((constraint) => (
+            <article>
+              <h3>{constraint.title}</h3>
+              <p>{constraint.detail}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pipeline-panel" aria-labelledby="pipeline-title">
+      <div class="pipeline-heading">
+        <div>
+          <p class="eyebrow">02 · How MERI works</p>
+          <h2 id="pipeline-title">{caseStudy.pipeline.title}</h2>
+        </div>
+        <p>{caseStudy.pipeline.introduction}</p>
+      </div>
+
+      <ol class="pipeline-list">
+        {caseStudy.pipeline.stages.map((stage) => (
+          <li>
+            <span class="pipeline-index" aria-hidden="true">{stage.index}</span>
+            <h3>{stage.title}</h3>
+            <p>{stage.detail}</p>
+            <p class="pipeline-output">{stage.output}</p>
+          </li>
+        ))}
+      </ol>
+
+      <aside class="pipeline-boundary" aria-label="Current retrieval boundary">
+        <p class="boundary-label">Current boundary</p>
+        <p>{caseStudy.pipeline.boundary}</p>
+      </aside>
+    </section>
+
+    <section class="content-section contribution-section" aria-labelledby="contribution-title">
+      <div class="section-marker">
+        <span>03</span>
+        <p>My contribution</p>
+      </div>
+      <div class="section-body">
+        <div class="section-introduction">
+          <h2 id="contribution-title">What I worked on</h2>
+          <p>{caseStudy.collaboration.introduction}</p>
+        </div>
+
+        <div class="collaboration-notes" aria-label="MERI collaboration and attribution">
+          <article>
+            <h3>Software work</h3>
+            <p>{caseStudy.collaboration.software}</p>
+          </article>
+          <article>
+            <h3>Published study</h3>
+            <p>{caseStudy.collaboration.research}</p>
+          </article>
+          <article>
+            <h3>Current repository</h3>
+            <p>{caseStudy.collaboration.currentRepository}</p>
+          </article>
+        </div>
+
+        <div class="contribution-grid">
+          {caseStudy.contributions.map((area) => (
+            <article class="contribution-card">
+              <header>
+                <span aria-hidden="true">{area.index}</span>
+                <h3>{area.title}</h3>
+              </header>
+              <dl>
+                <div>
+                  <dt>Problem</dt>
+                  <dd>{area.problem}</dd>
+                </div>
+                <div>
+                  <dt>What I did</dt>
+                  <dd>{area.work}</dd>
+                </div>
+                <div>
+                  <dt>Why it mattered</dt>
+                  <dd>{area.significance}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="decisions-section" aria-labelledby="decisions-title">
+      <div class="decisions-heading">
+        <p class="eyebrow">04 · Engineering decisions</p>
+        <h2 id="decisions-title">Engineering decisions</h2>
+      </div>
+      <div class="decision-list">
+        {caseStudy.decisions.map((decision, index) => (
+          <article>
+            <span class="decision-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <p class="decision-scope">{decision.scope}</p>
+              <h3>{decision.title}</h3>
+            </div>
+            <p>{decision.decision}</p>
+            <div class="tradeoff">
+              <h4>Trade-off</h4>
+              <p>{decision.tradeoff}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="relationship-panel" aria-labelledby="relationship-title">
+      <div class="relationship-heading">
+        <div>
+          <p class="eyebrow">05 · Research and software</p>
+          <h2 id="relationship-title">{caseStudy.relationship.title}</h2>
+        </div>
+        <p>{caseStudy.relationship.introduction}</p>
+      </div>
+
+      <div class="relationship-comparison">
+        <article>
+          <p class="comparison-label">Paper</p>
+          <h3>{caseStudy.relationship.paper.title}</h3>
+          <p>{caseStudy.relationship.paper.detail}</p>
+          <dl>
+            {caseStudy.relationship.paper.facts.map((fact) => (
+              <div>
+                <dt>{fact.value}</dt>
+                <dd>{fact.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+        <article>
+          <p class="comparison-label">Software</p>
+          <h3>{caseStudy.relationship.repository.title}</h3>
+          <p>{caseStudy.relationship.repository.detail}</p>
+          <dl>
+            {caseStudy.relationship.repository.facts.map((fact) => (
+              <div>
+                <dt>{fact.value}</dt>
+                <dd>{fact.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+      </div>
+
+      <p class="relationship-conclusion">{caseStudy.relationship.conclusion}</p>
+    </section>
+
+    <section class="content-section technology-section" aria-labelledby="technology-title">
+      <div class="section-marker">
+        <span>06</span>
+        <p>Technology</p>
+      </div>
+      <div class="section-body">
+        <div class="section-introduction">
+          <h2 id="technology-title">Technology and methods</h2>
+          <p>
+            The stack below separates the published experiment, the current package, and the
+            earlier implementation where I made most of my software contributions.
+          </p>
+        </div>
+        <div class="technology-grid">
+          {caseStudy.technology.map((group) => (
+            <article>
+              <h3>{group.role}</h3>
+              <p>{group.purpose}</p>
+              <ul aria-label={`${group.role} technologies and methods`}>
+                {group.technologies.map((technology) => <li>{technology}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="sources-section" aria-labelledby="sources-title">
+      <div class="sources-heading">
+        <div>
+          <p class="eyebrow">07 · Project references</p>
+          <h2 id="sources-title">Sources and references</h2>
+        </div>
+        <p>The paper, software, publication record, and project context are available publicly.</p>
+      </div>
+      <ul class="source-list">
+        {caseStudy.sources.map((source, index) => (
+          <li>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <a href={source.url} target="_blank" rel="noopener">
+                {source.label} <span aria-hidden="true">↗</span>
+              </a>
+              {source.note && <p>{source.note}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .meri-study {
+    padding-bottom: clamp(3rem, 8vw, 7rem);
+  }
+
+  .meri-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.62fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: end;
+    padding-block: clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .meri-hero-copy,
+  .hero-context,
+  .section-body,
+  .pipeline-heading > *,
+  .relationship-heading > *,
+  .sources-heading > * {
+    min-width: 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--accent-dark);
+  }
+
+  .meri-hero h1 {
+    margin-bottom: 0;
+    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-weight: 760;
+    letter-spacing: -0.085em;
+    line-height: 0.78;
+  }
+
+  .full-name {
+    max-width: 37rem;
+    margin: 1.6rem 0 0;
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: clamp(0.86rem, 1.4vw, 1.05rem);
+    font-weight: 720;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+  }
+
+  .hero-statement {
+    max-width: 46rem;
+    margin: 2rem 0 0;
+    color: var(--ink-soft);
+    font-size: clamp(1.08rem, 1.8vw, 1.35rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero-context {
+    padding: 1.5rem;
+    border-top: 4px solid var(--accent);
+    background: rgba(255, 255, 255, 0.62);
+  }
+
+  .paper-label,
+  .section-marker p,
+  .pipeline-output,
+  .boundary-label,
+  .decision-scope,
+  .comparison-label {
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .paper-title {
+    margin-bottom: 2rem;
+    font-size: 1.35rem;
+    font-weight: 720;
+    line-height: 1.2;
+  }
+
+  .hero-context dl {
+    margin: 0;
+  }
+
+  .hero-context dl div {
+    display: grid;
+    grid-template-columns: minmax(5rem, 0.35fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero-context dt {
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .hero-context dd {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  .content-section {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.22fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    padding-block: clamp(5rem, 10vw, 9rem);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .section-marker {
+    padding-top: 0.45rem;
+  }
+
+  .section-marker > span {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .section-marker p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .section-body > h2,
+  .section-introduction h2,
+  .pipeline-heading h2,
+  .decisions-heading h2,
+  .relationship-heading h2,
+  .sources-heading h2 {
+    margin-bottom: 0;
+    font-size: clamp(2.75rem, 5.6vw, 5.6rem);
+  }
+
+  .problem-copy {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+    max-width: 66rem;
+    margin-top: 2.5rem;
+  }
+
+  .problem-copy p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .constraint-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 4rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .constraint-grid article {
+    min-width: 0;
+    padding: 1.5rem 1.5rem 0 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .constraint-grid article + article {
+    padding-left: 1.5rem;
+  }
+
+  .constraint-grid article:last-child {
+    border-right: 0;
+  }
+
+  .constraint-grid h3 {
+    font-size: 1.1rem;
+  }
+
+  .constraint-grid p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .pipeline-panel {
+    margin-block: clamp(2rem, 5vw, 5rem);
+    padding: clamp(2.5rem, 6vw, 5.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .pipeline-heading,
+  .relationship-heading,
+  .sources-heading,
+  .section-introduction {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.62fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: end;
+  }
+
+  .pipeline-heading .eyebrow,
+  .relationship-panel .eyebrow {
+    color: #8ed4d7;
+  }
+
+  .pipeline-heading > p,
+  .relationship-heading > p {
+    margin: 0;
+    color: #cad3d8;
+  }
+
+  .pipeline-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 4rem 0 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    list-style: none;
+  }
+
+  .pipeline-list li {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1.6rem 1.35rem 0 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .pipeline-list li + li {
+    padding-left: 1.35rem;
+  }
+
+  .pipeline-list li:last-child {
+    border-right: 0;
+  }
+
+  .pipeline-index {
+    color: #8ed4d7;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .pipeline-list h3 {
+    margin: 1.5rem 0 1rem;
+    font-size: 1.25rem;
+  }
+
+  .pipeline-list li > p:not(.pipeline-output) {
+    margin: 0;
+    color: #cad3d8;
+    font-size: 0.93rem;
+  }
+
+  .pipeline-output {
+    margin: auto 0 0;
+    padding-top: 1.5rem;
+    color: #8ed4d7;
+  }
+
+  .pipeline-boundary {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.25fr) minmax(0, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .pipeline-boundary p {
+    margin: 0;
+  }
+
+  .pipeline-boundary p:last-child {
+    color: #cad3d8;
+  }
+
+  .boundary-label {
+    color: #8ed4d7;
+  }
+
+  .section-introduction > p,
+  .sources-heading > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .collaboration-notes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 3.5rem;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .collaboration-notes article {
+    min-width: 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.68);
+  }
+
+  .collaboration-notes h3 {
+    font-size: 1rem;
+  }
+
+  .collaboration-notes p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .contribution-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 4rem;
+  }
+
+  .contribution-card {
+    min-width: 0;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border: 1px solid var(--line-strong);
+    background: rgba(255, 255, 255, 0.42);
+  }
+
+  .contribution-card header {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .contribution-card header span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .contribution-card h3 {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+  }
+
+  .contribution-card dl {
+    margin: 0;
+  }
+
+  .contribution-card dl div {
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .contribution-card dl div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .contribution-card dt,
+  .technology-grid h3 {
+    margin-bottom: 0.55rem;
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .contribution-card dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+  }
+
+  .decisions-section {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  .decisions-heading {
+    margin-bottom: 3.5rem;
+  }
+
+  .decision-list {
+    border-top: 1px solid var(--ink);
+  }
+
+  .decision-list article {
+    display: grid;
+    grid-template-columns: 3rem minmax(14rem, 0.6fr) minmax(0, 1fr) minmax(14rem, 0.65fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .decision-list article > * {
+    min-width: 0;
+  }
+
+  .decision-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .decision-scope {
+    margin-bottom: 0.65rem;
+  }
+
+  .decision-list h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .decision-list article > p,
+  .tradeoff p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+  }
+
+  .tradeoff h4 {
+    margin: 0 0 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .relationship-panel {
+    padding: clamp(2.5rem, 6vw, 5.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .relationship-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 4rem;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .relationship-comparison > article {
+    min-width: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: #102330;
+  }
+
+  .comparison-label {
+    color: #8ed4d7;
+  }
+
+  .relationship-comparison h3 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.65rem, 3vw, 2.5rem);
+  }
+
+  .relationship-comparison article > p:not(.comparison-label) {
+    color: #cad3d8;
+  }
+
+  .relationship-comparison dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 2rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .relationship-comparison dt {
+    color: white;
+    font-size: 1.45rem;
+    font-weight: 750;
+  }
+
+  .relationship-comparison dd {
+    margin: 0.25rem 0 0;
+    color: #9fb0ba;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+  }
+
+  .relationship-conclusion {
+    max-width: 66rem;
+    margin: 2.5rem 0 0 auto;
+    color: #cad3d8;
+  }
+
+  .technology-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 4rem;
+  }
+
+  .technology-grid article {
+    min-width: 0;
+    padding: 1.6rem;
+    border-top: 1px solid var(--ink);
+    background: rgba(255, 255, 255, 0.42);
+  }
+
+  .technology-grid article:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .technology-grid p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .technology-grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .technology-grid li {
+    padding: 0.34rem 0.58rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .sources-section {
+    padding-block: clamp(5rem, 10vw, 9rem) 0;
+  }
+
+  .source-list {
+    margin: 4rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+    list-style: none;
+  }
+
+  .source-list li {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .source-list li > span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .source-list a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    color: var(--accent-dark);
+    font-size: 1.05rem;
+    font-weight: 750;
+  }
+
+  .source-list p {
+    max-width: 54rem;
+    margin: 0.45rem 0 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 980px) {
+    .meri-hero,
+    .content-section,
+    .pipeline-heading,
+    .relationship-heading,
+    .sources-heading,
+    .section-introduction {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .hero-context {
+      max-width: 42rem;
+    }
+
+    .decision-list article {
+      grid-template-columns: 2.5rem minmax(12rem, 0.5fr) minmax(0, 1fr);
+    }
+
+    .decision-list .tradeoff {
+      grid-column: 2 / -1;
+    }
+
+    .pipeline-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pipeline-list li:nth-child(2) {
+      border-right: 0;
+    }
+
+    .pipeline-list li:nth-child(n + 3) {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .meri-study,
+    .meri-hero,
+    .meri-hero-copy,
+    .hero-context,
+    .content-section,
+    .section-marker,
+    .section-body,
+    .problem-copy,
+    .constraint-grid,
+    .pipeline-panel,
+    .pipeline-heading,
+    .pipeline-list,
+    .pipeline-list li,
+    .pipeline-boundary,
+    .collaboration-notes,
+    .contribution-grid,
+    .contribution-card,
+    .decision-list,
+    .decision-list article,
+    .relationship-panel,
+    .relationship-heading,
+    .relationship-comparison,
+    .technology-grid,
+    .technology-grid article,
+    .sources-heading,
+    .source-list,
+    .source-list li {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .meri-hero {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3rem;
+      padding-block: 3rem 4rem;
+    }
+
+    .back-link {
+      margin-bottom: 2.25rem;
+      font-size: 0.8rem;
+    }
+
+    .full-name {
+      font-size: 0.82rem;
+      overflow-wrap: break-word;
+    }
+
+    .hero-statement {
+      font-size: 1.05rem;
+    }
+
+    .hero-context {
+      width: 100%;
+      padding: 1.25rem;
+    }
+
+    .hero-context dl div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.25rem;
+    }
+
+    .content-section {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+      padding-block: 4.5rem;
+    }
+
+    .section-body > h2,
+    .section-introduction h2,
+    .pipeline-heading h2,
+    .decisions-heading h2,
+    .relationship-heading h2,
+    .sources-heading h2 {
+      max-width: none;
+      font-size: clamp(2.35rem, 12vw, 3.7rem);
+      overflow-wrap: break-word;
+    }
+
+    .problem-copy,
+    .constraint-grid,
+    .pipeline-list,
+    .pipeline-boundary,
+    .collaboration-notes,
+    .contribution-grid,
+    .decision-list article,
+    .relationship-comparison,
+    .technology-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .problem-copy {
+      gap: 1.5rem;
+    }
+
+    .constraint-grid article,
+    .constraint-grid article + article {
+      padding: 1.5rem 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .constraint-grid article:last-child {
+      border-bottom: 0;
+    }
+
+    .pipeline-panel,
+    .relationship-panel {
+      width: 100%;
+      margin-inline: 0;
+      padding: 2rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .pipeline-list {
+      margin-top: 3rem;
+    }
+
+    .pipeline-list li,
+    .pipeline-list li + li,
+    .pipeline-list li:nth-child(n + 3) {
+      padding: 1.5rem 0;
+      border-right: 0;
+      border-top: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .pipeline-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .pipeline-list h3 {
+      margin-top: 0.75rem;
+    }
+
+    .pipeline-output {
+      margin-top: 0;
+    }
+
+    .pipeline-boundary {
+      gap: 0.75rem;
+    }
+
+    .collaboration-notes {
+      gap: 1px;
+    }
+
+    .contribution-grid {
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .decision-list article {
+      gap: 0.75rem;
+    }
+
+    .decision-list article > div,
+    .decision-list article > p,
+    .decision-list .tradeoff {
+      grid-column: 2;
+    }
+
+    .relationship-comparison {
+      margin-top: 3rem;
+    }
+
+    .relationship-comparison dl {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .relationship-comparison dt {
+      font-size: 1.2rem;
+    }
+
+    .relationship-comparison dd {
+      font-size: 0.67rem;
+      overflow-wrap: break-word;
+    }
+
+    .technology-grid article:last-child {
+      grid-column: auto;
+    }
+
+    .technology-grid li {
+      font-size: 0.75rem;
+    }
+
+    .source-list li {
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+
+    .source-list a,
+    .source-list p,
+    .contribution-card dd,
+    .collaboration-notes p,
+    .decision-list article > p,
+    .tradeoff p {
+      overflow-wrap: break-word;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .hero-actions .button {
+      width: 100%;
+    }
+
+    .relationship-comparison dl {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

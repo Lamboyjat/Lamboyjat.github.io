@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const { data } = project;
+const isFlagship = data.flagship;
+const homepageTechnologies = data.homepageTechnologies ?? data.technologies.slice(0, isFlagship ? 5 : 4);
+const homepageEvidence = data.evidence
+  .filter((item) => item.type !== "commit-history")
+  .slice(0, data.caseStudyPath ? 1 : 2);
+---
+
+<article class:list={["project-card", { "project-card--flagship": isFlagship }]}>
+  <div class="project-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+  <div class="project-content">
+    <div class="project-meta">
+      {isFlagship && <span class="project-featured-label">Featured case study</span>}
+      <p class="project-role">{data.roleLabel}</p>
+    </div>
+    <h3>{data.shortTitle}</h3>
+    <p class="project-summary">{data.summary}</p>
+
+    <div class="contribution">
+      <span>My contribution</span>
+      <p>{data.homepageContribution ?? data.contribution}</p>
+    </div>
+
+    <ul class="technology-list" aria-label={`${data.shortTitle} technologies`}>
+      {homepageTechnologies.map((technology) => <li>{technology}</li>)}
+    </ul>
+
+    <div class="evidence-links" aria-label={`${data.shortTitle} evidence`}>
+      {data.caseStudyPath && (
+        <a href={data.caseStudyPath}>
+          View case study <span aria-hidden="true">→</span>
+        </a>
+      )}
+      {homepageEvidence.map((item) => (
+        <a href={item.url} target="_blank" rel="noopener">
+          {isFlagship && item.type === "repository" ? "View ANCHOR repository" : item.label}
+          <span aria-hidden="true"> ↗</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</article>

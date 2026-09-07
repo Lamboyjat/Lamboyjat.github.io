@@ -1,0 +1,59 @@
+---
+import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/global.css";
+import socialPreview from "../../pic/lamjat.png";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Lamin Jatta | AI Software Developer, Data Scientist & Researcher",
+  description = "Portfolio of Lamin Jatta: agentic AI systems, RAG, document intelligence, knowledge systems, simulation, and applied machine learning.",
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(socialPreview.src, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0b1722" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lamin Jatta" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="Lamin Jatta, AI Software Developer and Data Scientist" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="site-shell">
+      <SiteHeader />
+      <main id="main-content" tabindex="-1">
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <p>© {new Date().getFullYear()} Lamin Jatta</p>
+        <p>AI systems built around evidence, traceability, and real engineering work.</p>
+      </footer>
+    </div>
+  </body>
+</html>

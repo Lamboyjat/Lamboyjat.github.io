@@ -1,0 +1,922 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { anchorCaseStudy as caseStudy } from "../../data/anchor-case-study";
+
+const project = await getEntry("projects", "anchor");
+
+if (!project) {
+  throw new Error("The ANCHOR project entry is required for this case study.");
+}
+
+const title = "ANCHOR case study | Lamin Jatta";
+const description =
+  "How I contributed to ANCHOR across source-grounded document intelligence, runtime architecture, engineering canvases, extension discovery, synchronization, and data boundaries.";
+
+const publicReferences = caseStudy.evidence.filter((reference) => reference.public !== false);
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="case-study">
+    <header class="case-hero">
+      <div class="case-hero-copy">
+        <a class="case-back-link" href="/#selected-work">← Selected work</a>
+        <p class="eyebrow">Engineering case study · Agentic AI & document intelligence</p>
+        <h1>{caseStudy.title}</h1>
+        <p class="case-hero-statement">{caseStudy.problemStatement}</p>
+        <div class="case-hero-actions" aria-label="ANCHOR source links">
+          {caseStudy.heroLinks.map((link, index) => (
+            <a
+              class:list={["button", index === 0 ? "button-primary" : "button-secondary"]}
+              href={link.url}
+              target="_blank"
+              rel="noopener"
+            >
+              {link.label} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <dl class="case-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>{caseStudy.role}</dd>
+        </div>
+        <div>
+          <dt>Organization</dt>
+          <dd>{caseStudy.organization}</dd>
+        </div>
+        <div>
+          <dt>Period</dt>
+          <dd>{caseStudy.period}</dd>
+        </div>
+      </dl>
+    </header>
+
+    <section class="case-section case-problem" aria-labelledby="problem-title">
+      <div class="case-section-label">
+        <span>01</span>
+        <p>The problem</p>
+      </div>
+      <div class="case-section-content">
+        <h2 id="problem-title">{caseStudy.problem.title}</h2>
+        <div class="case-problem-copy">
+          {caseStudy.problem.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <dl class="pressure-list">
+          {caseStudy.problem.pressures.map((pressure) => (
+            <div>
+              <dt>{pressure.label}</dt>
+              <dd>{pressure.detail}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <section class="architecture-panel" aria-labelledby="architecture-title">
+      <div class="architecture-heading">
+        <div>
+          <p class="eyebrow">02 · Current system architecture</p>
+          <h2 id="architecture-title">One project runtime, shared by people and agents.</h2>
+        </div>
+        <p>{caseStudy.architecture.summary}</p>
+      </div>
+
+      <ol class="architecture-ledger" aria-label="Current ANCHOR architecture layers">
+        {caseStudy.architecture.layers.map((layer) => (
+          <li>
+            <div class="architecture-index" aria-hidden="true">{layer.index}</div>
+            <div>
+              <p class="architecture-role">{layer.role}</p>
+              <h3>{layer.title}</h3>
+            </div>
+            <p>{layer.detail}</p>
+            <ul aria-label={`${layer.title} technologies`}>
+              {layer.technologies.map((technology) => <li>{technology}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ol>
+
+      <div class="architecture-boundary">
+        <p class="architecture-role">Current boundary</p>
+        <p>{caseStudy.architecture.boundaryNote}</p>
+      </div>
+    </section>
+
+    <section class="case-section contribution-section" aria-labelledby="contribution-title">
+      <div class="case-section-label">
+        <span>03</span>
+        <p>My contribution</p>
+      </div>
+      <div class="case-section-content">
+        <div class="contribution-heading">
+          <h2 id="contribution-title">What I worked on</h2>
+          <p>
+            I worked across several parts of ANCHOR. The areas below are grouped by the technical
+            problem, the changes I made, and why those changes mattered.
+          </p>
+        </div>
+
+        <div class="attribution-boundary" aria-labelledby="attribution-title">
+          <h3 id="attribution-title">Collaboration</h3>
+          <dl>
+            <div>
+              <dt>My role</dt>
+              <dd>{caseStudy.attribution.lamin}</dd>
+            </div>
+            <div>
+              <dt>Christoffer Björkskog</dt>
+              <dd>{caseStudy.attribution.christoffer}</dd>
+            </div>
+            <div>
+              <dt>Project team</dt>
+              <dd>{caseStudy.attribution.team}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="contribution-areas">
+          {caseStudy.contributions.map((area) => (
+            <article class="contribution-area">
+              <header>
+                <span aria-hidden="true">{area.index}</span>
+                <h3>{area.title}</h3>
+              </header>
+              <div class="contribution-reasoning">
+                <div>
+                  <h4>Problem</h4>
+                  <p>{area.problem}</p>
+                </div>
+                <div>
+                  <h4>Engineering work</h4>
+                  <p>{area.work}</p>
+                </div>
+                <div>
+                  <h4>Why it mattered</h4>
+                  <p>{area.significance}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section decisions-section" aria-labelledby="decisions-title">
+      <div class="case-section-label">
+        <span>04</span>
+        <p>Engineering decisions</p>
+      </div>
+      <div class="case-section-content">
+        <h2 id="decisions-title">Engineering decisions</h2>
+        <div class="decision-grid">
+          {caseStudy.decisions.map((decision, index) => (
+            <article class="decision-card">
+              <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <h3>{decision.title}</h3>
+              <p>{decision.decision}</p>
+              <div>
+                <h4>Trade-off</h4>
+                <p>{decision.tradeoff}</p>
+              </div>
+              <p class="decision-attribution">{decision.attribution}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section technology-section" aria-labelledby="technology-title">
+      <div class="case-section-label">
+        <span>05</span>
+        <p>Technology by role</p>
+      </div>
+      <div class="case-section-content">
+        <h2 id="technology-title">Technology and architecture</h2>
+        <div class="technology-groups">
+          {caseStudy.technology.map((group) => (
+            <article>
+              <h3>{group.role}</h3>
+              <p>{group.purpose}</p>
+              <ul aria-label={`${group.role} technologies`}>
+                {group.technologies.map((technology) => <li>{technology}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section evidence-section" aria-labelledby="evidence-title">
+      <div class="case-section-label">
+        <span>06</span>
+        <p>Project references</p>
+      </div>
+      <div class="case-section-content">
+        <div class="evidence-heading">
+          <h2 id="evidence-title">Sources and references</h2>
+          <p>
+            These links cover the source code, current architecture, Novia project context, and
+            software citation.
+          </p>
+        </div>
+        <ul class="case-evidence-list">
+          {publicReferences.map((evidence, index) => (
+            <li>
+              <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <a href={evidence.url} target="_blank" rel="noopener">
+                  {evidence.label} <span aria-hidden="true">↗</span>
+                </a>
+                {evidence.note && <p>{evidence.note}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="demonstrates-panel" aria-labelledby="demonstrates-title">
+      <div>
+        <p class="eyebrow">07 · Technical scope</p>
+        <h2 id="demonstrates-title">Working across documents, agents, runtimes, and interfaces.</h2>
+      </div>
+      <div class="demonstrates-list">
+        {caseStudy.demonstrates.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-study {
+    padding-bottom: clamp(4rem, 9vw, 8rem);
+  }
+
+  .case-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(19rem, 0.55fr);
+    gap: clamp(3rem, 8vw, 7rem);
+    align-items: end;
+    padding-block: clamp(4.5rem, 9vw, 8rem) clamp(4rem, 7vw, 6rem);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .case-back-link {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .case-back-link:hover {
+    color: var(--accent-dark);
+  }
+
+  .case-hero h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-weight: 730;
+    letter-spacing: -0.075em;
+  }
+
+  .case-hero-statement {
+    max-width: 47rem;
+    margin-bottom: 2rem;
+    color: var(--ink-soft);
+    font-size: clamp(1.2rem, 2.1vw, 1.65rem);
+    line-height: 1.45;
+  }
+
+  .case-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .case-meta {
+    margin: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .case-meta div {
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .case-meta dt,
+  .case-section-label,
+  .architecture-role,
+  .contribution-area h4,
+  .decision-card h4 {
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .case-meta dd {
+    margin: 0.25rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 670;
+  }
+
+  .case-section {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.25fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    padding-block: clamp(5rem, 10vw, 9rem);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .case-section-label {
+    display: flex;
+    gap: 0.8rem;
+    align-items: baseline;
+  }
+
+  .case-section-label span {
+    color: var(--accent);
+  }
+
+  .case-section-label p {
+    margin: 0;
+  }
+
+  .case-section-content > h2,
+  .architecture-heading h2,
+  .contribution-heading h2,
+  .evidence-heading h2,
+  .demonstrates-panel h2 {
+    max-width: 17ch;
+    margin-bottom: 3rem;
+    font-size: clamp(2.5rem, 5.2vw, 5rem);
+  }
+
+  .case-problem-copy {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 4rem);
+    max-width: 60rem;
+  }
+
+  .case-problem-copy p {
+    color: var(--ink-soft);
+    font-size: 1.08rem;
+  }
+
+  .pressure-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 3rem 0 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .pressure-list div {
+    padding: 1.5rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .pressure-list div:first-child {
+    padding-left: 0;
+  }
+
+  .pressure-list div:last-child {
+    border-right: 0;
+  }
+
+  .pressure-list dt {
+    margin-bottom: 0.65rem;
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pressure-list dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+  }
+
+  .architecture-panel {
+    margin-block: clamp(2rem, 4vw, 4rem);
+    padding: clamp(2rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .architecture-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.6fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .architecture-heading .eyebrow,
+  .architecture-role,
+  .architecture-source {
+    color: #8ed4d7;
+  }
+
+  .architecture-heading h2 {
+    margin-bottom: 0;
+  }
+
+  .architecture-heading > p,
+  .architecture-ledger > li > p,
+  .architecture-boundary > p:last-child {
+    margin: 0;
+    color: #cad3d8;
+  }
+
+  .architecture-ledger {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    list-style: none;
+  }
+
+  .architecture-ledger > li {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(12rem, 0.45fr) minmax(16rem, 0.9fr) minmax(11rem, 0.45fr);
+    gap: 1.5rem;
+    align-items: start;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .architecture-index {
+    color: #8ed4d7;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .architecture-ledger h3 {
+    margin-bottom: 0;
+    font-size: 1.35rem;
+  }
+
+  .architecture-role {
+    margin-bottom: 0.45rem;
+  }
+
+  .architecture-ledger ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .architecture-ledger ul li {
+    padding: 0.28rem 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    color: #d8e0e3;
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+  }
+
+  .architecture-boundary {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
+    gap: 2rem;
+    margin-top: 2.5rem;
+    padding: 1.25rem;
+    border-left: 3px solid #8ed4d7;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .architecture-source {
+    margin: 1.5rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .contribution-heading,
+  .evidence-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.48fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: end;
+  }
+
+  .contribution-heading h2,
+  .evidence-heading h2 {
+    margin-bottom: 0;
+  }
+
+  .contribution-heading > p,
+  .evidence-heading > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .attribution-boundary {
+    margin-block: 3.5rem 4rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border: 1px solid var(--line-strong);
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .attribution-boundary > h3 {
+    margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .attribution-boundary dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    margin: 0;
+  }
+
+  .attribution-boundary dt {
+    margin-bottom: 0.6rem;
+    color: var(--accent-dark);
+    font-weight: 750;
+  }
+
+  .attribution-boundary dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .contribution-areas {
+    border-top: 1px solid var(--ink);
+  }
+
+  .contribution-area {
+    padding-block: clamp(2.5rem, 5vw, 4.5rem);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .contribution-area header {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .contribution-area header span {
+    padding-top: 0.3rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .contribution-area h3 {
+    margin-bottom: 0;
+    font-size: clamp(1.8rem, 3.4vw, 3.15rem);
+  }
+
+  .contribution-reasoning {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding-left: 4rem;
+  }
+
+  .contribution-area h4,
+  .decision-card h4 {
+    margin: 0 0 0.65rem;
+    color: var(--accent-dark);
+  }
+
+  .contribution-reasoning p,
+  .decision-card p,
+  .technology-groups article > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .commit-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
+    margin-top: 2rem;
+    padding-left: 4rem;
+  }
+
+  .commit-links a {
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .decision-grid,
+  .technology-groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+    border-left: 1px solid var(--line);
+  }
+
+  .decision-card,
+  .technology-groups article {
+    min-height: 22rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.38);
+  }
+
+  .decision-card > span {
+    display: block;
+    margin-bottom: 2rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .decision-card h3,
+  .technology-groups h3 {
+    margin-bottom: 1rem;
+    font-size: 1.65rem;
+  }
+
+  .decision-card > div {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .decision-attribution {
+    margin-top: 1.5rem !important;
+    color: var(--accent-dark) !important;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .technology-groups article {
+    min-height: 18rem;
+  }
+
+  .technology-groups ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .technology-groups li {
+    padding: 0.34rem 0.58rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+  }
+
+  .case-evidence-list {
+    margin: 3.5rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+    list-style: none;
+  }
+
+  .case-evidence-list li {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .case-evidence-list > li > span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .case-evidence-list a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    color: var(--accent-dark);
+    font-size: 1.08rem;
+    font-weight: 750;
+  }
+
+  .case-evidence-list p {
+    margin: 0.3rem 0 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .demonstrates-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: clamp(3rem, 7vw, 7rem);
+    margin-top: clamp(2rem, 5vw, 5rem);
+    padding: clamp(2.5rem, 7vw, 6rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .demonstrates-panel .eyebrow {
+    color: #8ed4d7;
+  }
+
+  .demonstrates-panel h2 {
+    margin-bottom: 0;
+  }
+
+  .demonstrates-list {
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .demonstrates-list article {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.45fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .demonstrates-list h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .demonstrates-list p {
+    margin: 0;
+    color: #cad3d8;
+  }
+
+  @media (max-width: 980px) {
+    .case-hero,
+    .architecture-heading,
+    .contribution-heading,
+    .evidence-heading,
+    .demonstrates-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .architecture-ledger > li {
+      grid-template-columns: 2.5rem minmax(12rem, 0.45fr) minmax(0, 1fr);
+    }
+
+    .architecture-ledger > li > ul {
+      grid-column: 2 / -1;
+    }
+
+    .attribution-boundary dl,
+    .contribution-reasoning,
+    .pressure-list {
+      grid-template-columns: 1fr;
+    }
+
+    .pressure-list div {
+      padding-inline: 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pressure-list div:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .case-hero {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding-block: 3.5rem 4rem;
+    }
+
+    .case-back-link {
+      margin-bottom: 2.25rem;
+      font-size: 0.8rem;
+    }
+
+    .case-section {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding-block: 4.5rem;
+    }
+
+    .case-section-content > h2,
+    .architecture-heading h2,
+    .contribution-heading h2,
+    .evidence-heading h2,
+    .demonstrates-panel h2 {
+      font-size: clamp(2.35rem, 11vw, 3.7rem);
+    }
+
+    .case-problem-copy,
+    .decision-grid,
+    .technology-groups,
+    .architecture-boundary,
+    .demonstrates-list article {
+      grid-template-columns: 1fr;
+    }
+
+    .architecture-panel {
+      margin-inline: -0.35rem;
+      padding: 2rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .architecture-heading {
+      margin-bottom: 2.5rem;
+    }
+
+    .architecture-ledger > li {
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.75rem 1rem;
+    }
+
+    .architecture-ledger > li > p,
+    .architecture-ledger > li > ul {
+      grid-column: 2;
+    }
+
+    .architecture-ledger ul li,
+    .technology-groups li {
+      font-size: 0.75rem;
+    }
+
+    .architecture-source,
+    .commit-links a,
+    .decision-attribution {
+      font-size: 0.76rem;
+    }
+
+    .attribution-boundary dl {
+      gap: 1.5rem;
+    }
+
+    .attribution-boundary dd,
+    .case-evidence-list p {
+      font-size: 0.95rem;
+    }
+
+    .contribution-area header {
+      grid-template-columns: 2rem minmax(0, 1fr);
+    }
+
+    .contribution-reasoning,
+    .commit-links {
+      padding-left: 3rem;
+    }
+
+    .contribution-reasoning {
+      gap: 1.75rem;
+    }
+
+    .decision-card,
+    .technology-groups article {
+      min-height: auto;
+    }
+
+    .demonstrates-panel {
+      padding: 2rem 1.25rem;
+    }
+
+    .demonstrates-list article {
+      gap: 0.65rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .case-hero-actions .button {
+      width: 100%;
+    }
+
+    .contribution-reasoning,
+    .commit-links {
+      padding-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+review/
+
+# Local portrait alternatives; production imports the other two pic/ assets.
+/pic/Lamin Jatta nr 1.jpg
+/pic/Lamin-Jatta.jpg

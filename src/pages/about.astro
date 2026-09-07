@@ -1,0 +1,788 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { aboutPage } from "../data/about";
+
+const title = "About & Experience | Lamin Jatta";
+const description =
+  "About Lamin Jatta, a project researcher and AI software developer working on document intelligence, agentic systems, machine learning, and engineering research software.";
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="about-page">
+    <header class="about-hero">
+      <div class="about-hero-heading">
+        <a class="about-back-link" href="/#about">← Home</a>
+        <p class="eyebrow">About & experience</p>
+        <h1>My work has moved from software and data into applied AI systems.</h1>
+      </div>
+
+      <div class="about-introduction">
+        <div class="about-introduction-copy">
+          {aboutPage.introduction.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <dl class="profile-facts" aria-label="Professional profile">
+          {aboutPage.profileFacts.map((fact) => (
+            <div>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </header>
+
+    <section class="current-work" aria-labelledby="current-work-title">
+      <div class="current-work-heading">
+        <p class="eyebrow">Current work</p>
+        <h2 id="current-work-title">{aboutPage.currentWork.title}</h2>
+      </div>
+
+      <div class="current-work-body">
+        <div class="current-work-copy">
+          {aboutPage.currentWork.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <div class="current-work-areas">
+          {aboutPage.currentWork.areas.map((area, index) => (
+            <article>
+              <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{area.title}</h3>
+                <p>{area.detail}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="career-grid">
+      <section class="experience-section" aria-labelledby="experience-title">
+        <header class="career-heading">
+          <p class="eyebrow">Experience</p>
+          <h2 id="experience-title">Professional work</h2>
+        </header>
+
+        <ol class="experience-list">
+          {aboutPage.experience.map((item) => (
+            <li>
+              <div class="career-meta">
+                <p>{item.period}</p>
+                <p>{item.organization}</p>
+              </div>
+              <div class="career-content">
+                <h3>{item.role}</h3>
+                {item.detail.map((paragraph) => <p>{paragraph}</p>)}
+                <div class="career-links" aria-label={`${item.role} links`}>
+                  {item.links.map((link) => (
+                    <a href={link.url} target="_blank" rel="noopener">
+                      {link.label} <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="education-section" aria-labelledby="education-title">
+        <header class="career-heading">
+          <p class="eyebrow">Education</p>
+          <h2 id="education-title">Academic background</h2>
+        </header>
+
+        <ol class="education-list">
+          {aboutPage.education.map((item) => (
+            <li>
+              <div class="career-meta">
+                <p>{item.period}</p>
+                <p>{item.institution}</p>
+              </div>
+              <div class="career-content">
+                <h3>{item.qualification}</h3>
+                <p>{item.detail}</p>
+                <div class="career-links" aria-label={`${item.qualification} links`}>
+                  {item.links.map((link) => (
+                    <a
+                      href={link.url}
+                      target={link.url.startsWith("http") ? "_blank" : undefined}
+                      rel={link.url.startsWith("http") ? "noopener" : undefined}
+                    >
+                      {link.label} <span aria-hidden="true">{link.url.startsWith("http") ? "↗" : "→"}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="technical-practice" aria-labelledby="practice-title">
+      <div class="practice-heading">
+        <div>
+          <p class="eyebrow">Technical practice</p>
+          <h2 id="practice-title">Tools grouped by the work they support.</h2>
+        </div>
+        <p>
+          These are technologies and methods I use in the projects and research described in
+          this portfolio. The grouping matters more than an arbitrary proficiency score.
+        </p>
+      </div>
+
+      <div class="practice-grid">
+        {aboutPage.practice.map((group, index) => (
+          <article>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{group.title}</h3>
+              <p>{group.purpose}</p>
+              <ul aria-label={`${group.title} technologies`}>
+                {group.technologies.map((technology) => <li>{technology}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="working-approach" aria-labelledby="approach-title">
+      <div class="approach-heading">
+        <p class="eyebrow">Working approach</p>
+        <h2 id="approach-title">How I tend to build research software.</h2>
+      </div>
+
+      <div class="approach-list">
+        {aboutPage.approach.map((principle, index) => (
+          <article>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <h3>{principle.title}</h3>
+            <p>{principle.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="contact-panel" aria-labelledby="contact-title">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Contact and profiles</h2>
+      </div>
+      <p>{aboutPage.contact.text}</p>
+      <div class="contact-links">
+        {aboutPage.contact.links.map((link) => (
+          <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel={link.url.startsWith("http") ? "me noopener" : undefined}>
+            {link.label} <span aria-hidden="true">{link.url.startsWith("http") ? "↗" : "→"}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .about-page {
+    padding-bottom: clamp(4rem, 9vw, 8rem);
+  }
+
+  .about-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(21rem, 0.68fr);
+    gap: clamp(3rem, 8vw, 7rem);
+    align-items: end;
+    padding-block: clamp(4.5rem, 9vw, 8rem) clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .about-back-link {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .about-back-link:hover {
+    color: var(--accent-dark);
+  }
+
+  .about-hero h1 {
+    max-width: 12ch;
+    margin-bottom: 0;
+    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-weight: 720;
+    letter-spacing: -0.065em;
+  }
+
+  .about-introduction {
+    display: grid;
+    gap: 2.75rem;
+  }
+
+  .about-introduction-copy {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .about-introduction-copy p {
+    color: var(--ink-soft);
+    font-size: 1.06rem;
+  }
+
+  .about-introduction-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  .profile-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .profile-facts div {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .profile-facts div:nth-child(odd) {
+    padding-right: 1rem;
+  }
+
+  .profile-facts div:nth-child(even) {
+    padding-left: 1rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .profile-facts dt,
+  .career-meta p:first-child,
+  .practice-grid > article > span,
+  .approach-list > article > span,
+  .current-work-areas > article > span {
+    color: var(--accent-dark);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .profile-facts dd {
+    margin: 0.3rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 670;
+    line-height: 1.4;
+  }
+
+  .current-work {
+    margin-block: clamp(1rem, 4vw, 4rem);
+    padding: clamp(2.25rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .current-work-heading {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+
+  .current-work-heading .eyebrow,
+  .current-work-areas > article > span,
+  .technical-practice .eyebrow,
+  .practice-grid > article > span,
+  .contact-panel .eyebrow,
+  .contact-links a {
+    color: #8ed4d7;
+  }
+
+  .current-work-heading h2,
+  .career-heading h2,
+  .practice-heading h2,
+  .approach-heading h2,
+  .contact-panel h2 {
+    margin-bottom: 0;
+    font-size: clamp(2.7rem, 5.4vw, 5.2rem);
+  }
+
+  .current-work-heading h2 {
+    max-width: 13ch;
+  }
+
+  .current-work-body {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.65fr) minmax(0, 1fr);
+    gap: clamp(3rem, 8vw, 7rem);
+  }
+
+  .current-work-copy p,
+  .current-work-areas p,
+  .practice-heading > p,
+  .practice-grid p {
+    color: #cad3d8;
+  }
+
+  .current-work-copy p {
+    font-size: 1.03rem;
+  }
+
+  .current-work-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  .current-work-areas {
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .current-work-areas article {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .current-work-areas h3 {
+    margin-bottom: 0.55rem;
+    font-size: 1.2rem;
+  }
+
+  .current-work-areas p {
+    margin-bottom: 0;
+    font-size: 0.94rem;
+  }
+
+  .career-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(4rem, 8vw, 8rem);
+    padding-block: clamp(6rem, 11vw, 10rem);
+  }
+
+  .career-heading {
+    margin-bottom: 3rem;
+  }
+
+  .career-heading h2 {
+    font-size: clamp(2.45rem, 4.3vw, 4.2rem);
+  }
+
+  .experience-list,
+  .education-list {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+    list-style: none;
+  }
+
+  .experience-list > li,
+  .education-list > li {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.34fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    padding-block: 2.25rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .career-meta p {
+    margin-bottom: 0.5rem;
+  }
+
+  .career-meta p:last-child {
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    font-weight: 650;
+    line-height: 1.4;
+  }
+
+  .career-content h3 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.65rem, 3vw, 2.5rem);
+  }
+
+  .career-content > p {
+    color: var(--ink-soft);
+  }
+
+  .career-content > p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .career-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.1rem;
+    margin-top: 1.35rem;
+  }
+
+  .career-links a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    color: var(--accent-dark);
+    font-size: 0.86rem;
+    font-weight: 750;
+  }
+
+  .technical-practice {
+    padding: clamp(2.5rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .practice-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 0.5fr);
+    gap: clamp(2rem, 7vw, 7rem);
+    align-items: end;
+    margin-bottom: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .practice-heading h2 {
+    max-width: 13ch;
+  }
+
+  .practice-heading > p {
+    margin-bottom: 0;
+  }
+
+  .practice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .practice-grid article {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .practice-grid article:nth-child(odd) {
+    padding-right: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .practice-grid article:nth-child(even) {
+    padding-left: clamp(1.5rem, 4vw, 4rem);
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .practice-grid h3 {
+    margin-bottom: 0.65rem;
+    font-size: 1.3rem;
+  }
+
+  .practice-grid p {
+    margin-bottom: 1.25rem;
+    font-size: 0.92rem;
+  }
+
+  .practice-grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .practice-grid li {
+    padding: 0.35rem 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    color: #e5ebed;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .working-approach {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.68fr) minmax(0, 1fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    padding-block: clamp(6rem, 11vw, 10rem);
+  }
+
+  .approach-heading h2 {
+    max-width: 12ch;
+    font-size: clamp(2.7rem, 5vw, 4.9rem);
+  }
+
+  .approach-list {
+    border-top: 1px solid var(--ink);
+  }
+
+  .approach-list article {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(9rem, 0.42fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1.6rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .approach-list h3 {
+    margin: 0;
+    font-size: 1.08rem;
+  }
+
+  .approach-list p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+  }
+
+  .contact-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.65fr) minmax(18rem, 0.62fr) minmax(10rem, 0.3fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    padding: clamp(2.5rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: white;
+  }
+
+  .contact-panel h2 {
+    font-size: clamp(2.5rem, 4.5vw, 4.3rem);
+  }
+
+  .contact-panel > p {
+    margin: 0;
+    color: #cad3d8;
+  }
+
+  .contact-links {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .contact-links a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 750;
+  }
+
+  @media (max-width: 960px) {
+    .about-hero,
+    .current-work-heading,
+    .current-work-body,
+    .career-grid,
+    .practice-heading,
+    .working-approach,
+    .contact-panel {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .about-hero > *,
+    .current-work-heading > *,
+    .current-work-body > *,
+    .career-grid > *,
+    .practice-heading > *,
+    .working-approach > *,
+    .contact-panel > * {
+      min-width: 0;
+    }
+
+    .career-grid {
+      gap: 6rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .about-hero,
+    .about-hero-heading,
+    .about-introduction,
+    .current-work,
+    .current-work-heading,
+    .current-work-body,
+    .current-work-copy,
+    .current-work-areas,
+    .career-grid,
+    .experience-section,
+    .education-section,
+    .career-heading,
+    .experience-list,
+    .education-list,
+    .career-meta,
+    .career-content,
+    .technical-practice,
+    .practice-heading,
+    .practice-grid,
+    .practice-grid article,
+    .practice-grid article > div,
+    .working-approach,
+    .approach-heading,
+    .approach-list,
+    .approach-list article,
+    .contact-panel,
+    .contact-links {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .about-hero {
+      gap: 3rem;
+      padding-block: 3.5rem 4rem;
+    }
+
+    .about-back-link {
+      margin-bottom: 2.25rem;
+      font-size: 0.82rem;
+    }
+
+    .about-introduction-copy p {
+      line-height: 1.68;
+    }
+
+    .profile-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .profile-facts div:nth-child(odd),
+    .profile-facts div:nth-child(even) {
+      padding-inline: 0;
+      border-left: 0;
+    }
+
+    .profile-facts dt,
+    .career-meta p:first-child,
+    .practice-grid > article > span,
+    .approach-list > article > span,
+    .current-work-areas > article > span {
+      font-size: 0.76rem;
+    }
+
+    .profile-facts dd {
+      font-size: 0.95rem;
+    }
+
+    .current-work,
+    .technical-practice,
+    .contact-panel {
+      width: 100%;
+      margin-inline: 0;
+      padding: 2.25rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .current-work-heading,
+    .practice-heading {
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .current-work-heading h2,
+    .career-heading h2,
+    .practice-heading h2,
+    .approach-heading h2,
+    .contact-panel h2 {
+      width: 100%;
+      max-width: none;
+      font-size: clamp(2.45rem, 12vw, 3.7rem);
+      overflow-wrap: break-word;
+    }
+
+    .current-work-body {
+      gap: 3rem;
+    }
+
+    .career-grid {
+      padding-block: 6rem;
+    }
+
+    .experience-list > li,
+    .education-list > li {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+      padding-block: 2.75rem;
+    }
+
+    .career-meta {
+      display: grid;
+      grid-template-columns: minmax(0, 4.2rem) minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .career-meta p {
+      margin: 0;
+    }
+
+    .career-content > p {
+      line-height: 1.68;
+    }
+
+    .career-content h3,
+    .career-meta p,
+    .practice-grid h3,
+    .practice-grid p,
+    .approach-list h3,
+    .approach-list p,
+    .contact-panel p,
+    .contact-links a {
+      overflow-wrap: break-word;
+    }
+
+    .career-links a,
+    .contact-links a {
+      font-size: 0.92rem;
+    }
+
+    .practice-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .practice-grid article:nth-child(odd),
+    .practice-grid article:nth-child(even) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+      padding: 2.25rem 0;
+      border-left: 0;
+    }
+
+    .practice-grid li {
+      font-size: 0.76rem;
+    }
+
+    .working-approach {
+      gap: 3.5rem;
+    }
+
+    .approach-list article {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.65rem;
+      padding-block: 1.9rem;
+    }
+
+    .approach-list p {
+      grid-column: auto;
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .contact-panel {
+      gap: 1.75rem;
+    }
+  }
+</style>

@@ -1,0 +1,54 @@
+---
+const homePrefix = Astro.url.pathname === "/" ? "" : "/";
+const navItems = [
+  { label: "Work", href: `${homePrefix}#selected-work` },
+  { label: "Research", href: "/research/" },
+  { label: "About", href: "/about/" },
+];
+
+const githubUrl = "https://github.com/Lamboyjat";
+---
+
+<header class="site-header">
+  <a class="identity" href="/" aria-label="Lamin Jatta, home">
+    <span class="identity-mark" aria-hidden="true">LJ</span>
+    <span class="identity-name">Lamin Jatta</span>
+  </a>
+
+  <nav class="desktop-nav" aria-label="Primary navigation">
+    <ul>
+      {navItems.map((item) => (
+        <li><a href={item.href}>{item.label}</a></li>
+      ))}
+      <li>
+        <a class="github-link" href={githubUrl} rel="me noopener" target="_blank">
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="mobile-header-actions">
+    <a class="github-link" href={githubUrl} rel="me noopener" target="_blank">
+      GitHub <span aria-hidden="true">↗</span>
+    </a>
+    <details class="mobile-menu">
+      <summary>Menu</summary>
+      <nav aria-label="Mobile navigation">
+        <ul>
+          {navItems.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<script>
+  document.querySelectorAll<HTMLDetailsElement>(".mobile-menu").forEach((menu) => {
+    menu.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+      link.addEventListener("click", () => menu.removeAttribute("open"));
+    });
+  });
+</script>
