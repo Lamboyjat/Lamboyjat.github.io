@@ -173,8 +173,67 @@ export const researchPage = {
         },
       ],
     },
+    {
+      index: "04",
+      slug: "agentic-gui-test-generation",
+      period: "2026",
+      title: "Agentic Generation of GUI End-to-End Tests for Microservice-Based Systems",
+      shortTitle: "Agentic GUI test generation",
+      role: "Second author and software contributor",
+      status: "Accepted for presentation at QUATIC 2026",
+      problem:
+        "Generating a GUI test is not enough if it only reproduces isolated clicks. The research asks how an agent can use system and use-case specifications to produce executable end-to-end tests for a microservice application while retaining a structured journey that can be evaluated.",
+      contribution: [
+        "I added structured system and use-case specifications, then worked on prompt and execution-brief code that selected the relevant application context for each journey. This gave the agent a clearer contract for browser exploration and test generation.",
+        "I also worked on persisted browsing traces and evaluation records, coverage and mutation analysis, failure classification, and reporting. I reorganized the Python runtime and later separated the source into agent, workflow, and evaluation modules so experiments were easier to run and inspect.",
+      ],
+      methods: [
+        "PydanticAI",
+        "Playwright MCP",
+        "Structured journey contracts",
+        "Generated pytest-Playwright tests",
+        "Evaluation and reporting",
+      ],
+      outcome:
+        "The collaborative work resulted in a full paper accepted for presentation at QUATIC 2026. The programme schedules it in the Quality for AI session on 10 September 2026 at 12:10 in Genoa, Italy.",
+      links: [
+        {
+          label: "Current project repository",
+          url: "https://gitlab.abo.fi/eovsiann/microservice-testing-agent",
+        },
+        {
+          label: "Original development repository",
+          url: "https://github.com/elenaovv/microservice-testing-agent",
+        },
+        {
+          label: "QUATIC 2026 programme",
+          url: "https://2026.quatic.org/program/scientific-program",
+        },
+      ],
+    },
   ],
   publications: [
+    {
+      year: "2026",
+      type: "Accepted full paper",
+      title: "Agentic Generation of GUI End-to-End Tests for Microservice-Based Systems",
+      authors: "Elena Ovsiannikova, Lamin Jatta, and co-authors",
+      venue: "Accepted for presentation at QUATIC 2026, Quality for AI, Genoa, Italy",
+      links: [
+        {
+          label: "Programme",
+          url: "https://2026.quatic.org/program/scientific-program",
+        },
+        {
+          label: "Current repository",
+          url: "https://gitlab.abo.fi/eovsiann/microservice-testing-agent",
+        },
+        {
+          label: "Original repository",
+          url: "https://github.com/elenaovv/microservice-testing-agent",
+        },
+      ],
+    },
     {
       year: "2026",
       type: "Conference paper",
@@ -291,6 +350,21 @@ export const researchPage = {
       subject: "Control-agent repository history",
       url: "https://github.com/Novia-RDI-Seafaring/control-agent/commits/main/?author=Lamboyjat",
       purpose: "Attribution for implementation contributions.",
+    },
+    {
+      subject: "Original microservice-testing-agent history",
+      url: "https://github.com/elenaovv/microservice-testing-agent",
+      purpose: "Original development history and attribution before the university-hosted migration.",
+    },
+    {
+      subject: "Current microservice-testing-agent repository",
+      url: "https://gitlab.abo.fi/eovsiann/microservice-testing-agent",
+      purpose: "Current software architecture and university-hosted project history.",
+    },
+    {
+      subject: "QUATIC 2026 scientific programme",
+      url: "https://2026.quatic.org/program/scientific-program",
+      purpose: "Paper title, full-paper status, session, presentation date, and time.",
     },
   ],
 } satisfies ResearchPageData;
