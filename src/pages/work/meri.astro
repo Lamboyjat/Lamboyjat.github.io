@@ -276,9 +276,9 @@ const description =
   .meri-hero {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.62fr);
-    gap: clamp(3rem, 8vw, 8rem);
+    gap: var(--space-grid);
     align-items: end;
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: var(--space-hero);
     border-bottom: 1px solid var(--ink);
   }
 
@@ -295,7 +295,7 @@ const description =
     display: inline-flex;
     min-height: 1.5rem;
     align-items: center;
-    margin-bottom: clamp(2rem, 5vw, 4rem);
+    margin-bottom: var(--space-heading);
     color: var(--ink-soft);
     font-family: var(--font-mono);
     font-size: 0.78rem;
@@ -309,10 +309,10 @@ const description =
 
   .meri-hero h1 {
     margin-bottom: 0;
-    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-size: var(--type-page-title);
     font-weight: 760;
     letter-spacing: -0.085em;
-    line-height: 0.78;
+    line-height: 1.04;
   }
 
   .full-name {
@@ -395,8 +395,8 @@ const description =
   .content-section {
     display: grid;
     grid-template-columns: minmax(7rem, 0.22fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 7vw, 7rem);
-    padding-block: clamp(5rem, 10vw, 9rem);
+    gap: var(--space-grid);
+    padding-block: var(--space-section);
     border-bottom: 1px solid var(--line-strong);
   }
 
@@ -424,7 +424,7 @@ const description =
   .relationship-heading h2,
   .sources-heading h2 {
     margin-bottom: 0;
-    font-size: clamp(2.75rem, 5.6vw, 5.6rem);
+    font-size: var(--type-section);
   }
 
   .problem-copy {
@@ -474,7 +474,7 @@ const description =
 
   .pipeline-panel {
     margin-block: clamp(2rem, 5vw, 5rem);
-    padding: clamp(2.5rem, 6vw, 5.5rem);
+    padding: var(--space-panel);
     border-radius: var(--radius-lg);
     background: var(--ink);
     color: white;
@@ -486,7 +486,7 @@ const description =
   .section-introduction {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.62fr);
-    gap: clamp(2.5rem, 7vw, 7rem);
+    gap: var(--space-grid);
     align-items: end;
   }
 
@@ -667,7 +667,7 @@ const description =
   }
 
   .decisions-section {
-    padding-block: clamp(5rem, 10vw, 9rem);
+    padding-block: var(--space-section);
   }
 
   .decisions-heading {
@@ -722,7 +722,7 @@ const description =
   }
 
   .relationship-panel {
-    padding: clamp(2.5rem, 6vw, 5.5rem);
+    padding: var(--space-panel);
     border-radius: var(--radius-lg);
     background: var(--ink);
     color: white;
@@ -748,7 +748,7 @@ const description =
 
   .relationship-comparison h3 {
     margin-bottom: 1rem;
-    font-size: clamp(1.65rem, 3vw, 2.5rem);
+    font-size: var(--type-item-title);
   }
 
   .relationship-comparison article > p:not(.comparison-label) {
@@ -827,7 +827,7 @@ const description =
   }
 
   .sources-section {
-    padding-block: clamp(5rem, 10vw, 9rem) 0;
+    padding-block: var(--space-section) 0;
   }
 
   .source-list {
@@ -938,7 +938,7 @@ const description =
     .meri-hero {
       grid-template-columns: minmax(0, 1fr);
       gap: 3rem;
-      padding-block: 3rem 4rem;
+      padding-block: var(--space-hero);
     }
 
     .back-link {
@@ -968,7 +968,7 @@ const description =
     .content-section {
       grid-template-columns: minmax(0, 1fr);
       gap: 2rem;
-      padding-block: 4.5rem;
+      padding-block: var(--space-section);
     }
 
     .section-body > h2,
@@ -978,7 +978,7 @@ const description =
     .relationship-heading h2,
     .sources-heading h2 {
       max-width: none;
-      font-size: clamp(2.35rem, 12vw, 3.7rem);
+      font-size: var(--type-section);
       overflow-wrap: break-word;
     }
 

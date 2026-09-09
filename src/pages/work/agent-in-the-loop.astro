@@ -305,9 +305,9 @@ const description =
   .agent-hero {
     display: grid;
     grid-template-columns: minmax(0, 1.22fr) minmax(20rem, 0.58fr);
-    gap: clamp(3rem, 8vw, 8rem);
+    gap: var(--space-grid);
     align-items: end;
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: var(--space-hero);
     border-bottom: 1px solid var(--ink);
   }
 
@@ -325,7 +325,7 @@ const description =
     display: inline-flex;
     min-height: 1.5rem;
     align-items: center;
-    margin-bottom: clamp(2rem, 5vw, 4rem);
+    margin-bottom: var(--space-heading);
     color: var(--ink-soft);
     font-family: var(--font-mono);
     font-size: 0.78rem;
@@ -338,12 +338,12 @@ const description =
   }
 
   .agent-hero h1 {
-    max-width: 9ch;
+    max-width: none;
     margin-bottom: 0;
-    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-size: var(--type-page-title);
     font-weight: 760;
     letter-spacing: -0.08em;
-    line-height: 0.82;
+    line-height: 1.04;
   }
 
   .paper-title {
@@ -437,8 +437,8 @@ const description =
   .content-section {
     display: grid;
     grid-template-columns: minmax(7rem, 0.22fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 7vw, 7rem);
-    padding-block: clamp(5rem, 10vw, 9rem);
+    gap: var(--space-grid);
+    padding-block: var(--space-section);
     border-bottom: 1px solid var(--line-strong);
   }
 
@@ -467,7 +467,7 @@ const description =
   .relationship-heading h2,
   .sources-heading h2 {
     margin-bottom: 0;
-    font-size: clamp(2.75rem, 5.6vw, 5.6rem);
+    font-size: var(--type-section);
   }
 
   .problem-copy {
@@ -518,7 +518,7 @@ const description =
   .execution-panel,
   .evaluation-panel {
     margin-block: clamp(2rem, 5vw, 5rem);
-    padding: clamp(2.5rem, 6vw, 5.5rem);
+    padding: var(--space-panel);
     border-radius: var(--radius-lg);
     background: var(--ink);
     color: white;
@@ -530,7 +530,7 @@ const description =
   .sources-heading {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.62fr);
-    gap: clamp(2.5rem, 7vw, 7rem);
+    gap: var(--space-grid);
     align-items: end;
   }
 
@@ -651,7 +651,7 @@ const description =
   .contribution-ledger > article {
     display: grid;
     grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.45fr);
-    gap: clamp(2rem, 5vw, 5rem);
+    gap: var(--space-grid);
     padding-block: 2.5rem;
     border-bottom: 1px solid var(--line-strong);
   }
@@ -710,7 +710,7 @@ const description =
   .decisions-section,
   .limits-section,
   .relationship-section {
-    padding-block: clamp(5rem, 10vw, 9rem);
+    padding-block: var(--space-section);
   }
 
   .decisions-heading,
@@ -941,7 +941,7 @@ const description =
 
   .sources-section {
     margin-top: clamp(2rem, 5vw, 5rem);
-    padding: clamp(2.5rem, 6vw, 5.5rem);
+    padding: var(--space-panel);
     border-radius: var(--radius-lg);
     background: var(--ink);
     color: white;
@@ -1081,7 +1081,7 @@ const description =
   @media (max-width: 620px) {
     .agent-hero {
       gap: 3rem;
-      padding-block: 2.5rem 4rem;
+      padding-block: var(--space-hero);
     }
 
     .back-link {
@@ -1130,7 +1130,7 @@ const description =
 
     .content-section {
       gap: 2rem;
-      padding-block: 4.5rem;
+      padding-block: var(--space-section);
     }
 
     .section-body > h2,
@@ -1140,7 +1140,7 @@ const description =
     .limits-heading h2,
     .relationship-heading h2,
     .sources-heading h2 {
-      font-size: clamp(2.35rem, 12vw, 3.5rem);
+      font-size: var(--type-section);
     }
 
     .problem-copy,
@@ -1180,7 +1180,7 @@ const description =
     .execution-panel,
     .evaluation-panel,
     .sources-section {
-      margin-inline: -0.625rem;
+      margin-inline: calc(-1 * var(--page-gutter));
       padding: 2.75rem 1.25rem;
       border-radius: 0;
     }
@@ -1247,7 +1247,7 @@ const description =
     .decisions-section,
     .limits-section,
     .relationship-section {
-      padding-block: 4.5rem;
+      padding-block: var(--space-section);
     }
 
     .decisions-heading,

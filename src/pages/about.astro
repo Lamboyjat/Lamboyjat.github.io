@@ -190,10 +190,10 @@ const description =
 
   .about-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(21rem, 0.68fr);
-    gap: clamp(3rem, 8vw, 7rem);
-    align-items: end;
-    padding-block: clamp(4.5rem, 9vw, 8rem) clamp(4rem, 8vw, 7rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-grid);
+    align-items: start;
+    padding-block: var(--space-hero);
     border-bottom: 1px solid var(--ink);
   }
 
@@ -201,7 +201,7 @@ const description =
     display: inline-flex;
     min-height: 1.5rem;
     align-items: center;
-    margin-bottom: 3rem;
+    margin-bottom: var(--space-heading);
     color: var(--ink-soft);
     font-family: var(--font-mono);
     font-size: 0.78rem;
@@ -214,19 +214,20 @@ const description =
   }
 
   .about-hero h1 {
-    max-width: 12ch;
+    max-width: 18ch;
     margin-bottom: 0;
-    font-size: clamp(2.5rem, 4vw, 4.75rem);
+    font-size: var(--type-page-title);
     font-weight: 720;
-    letter-spacing: -0.065em;
+    letter-spacing: -0.045em;
   }
 
   .about-introduction {
     display: grid;
-    gap: 2.75rem;
+    gap: var(--space-heading);
   }
 
   .about-introduction-copy {
+    max-width: 65ch;
     padding-top: 1.5rem;
     border-top: 1px solid var(--line-strong);
   }
@@ -283,7 +284,7 @@ const description =
 
   .current-work {
     margin-block: clamp(1rem, 4vw, 4rem);
-    padding: clamp(2.25rem, 6vw, 5rem);
+    padding: var(--space-panel);
     border-radius: var(--radius-lg);
     background: var(--ink);
     color: white;
@@ -292,9 +293,9 @@ const description =
   .current-work-heading {
     display: grid;
     grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
-    gap: clamp(2rem, 6vw, 6rem);
+    gap: var(--space-grid);
     align-items: start;
-    margin-bottom: clamp(3rem, 7vw, 6rem);
+    margin-bottom: var(--space-heading);
   }
 
   .current-work-heading .eyebrow,
@@ -312,17 +313,17 @@ const description =
   .approach-heading h2,
   .contact-panel h2 {
     margin-bottom: 0;
-    font-size: clamp(2.7rem, 5.4vw, 5.2rem);
+    font-size: var(--type-section);
   }
 
   .current-work-heading h2 {
-    max-width: 13ch;
+    max-width: 22ch;
   }
 
   .current-work-body {
     display: grid;
     grid-template-columns: minmax(18rem, 0.65fr) minmax(0, 1fr);
-    gap: clamp(3rem, 8vw, 7rem);
+    gap: var(--space-grid);
   }
 
   .current-work-copy p,
@@ -365,8 +366,8 @@ const description =
   .career-grid {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: clamp(4rem, 8vw, 8rem);
-    padding-block: clamp(6rem, 11vw, 10rem);
+    gap: var(--space-grid);
+    padding-block: var(--space-section);
   }
 
   .career-heading {
@@ -374,7 +375,7 @@ const description =
   }
 
   .career-heading h2 {
-    font-size: clamp(2.45rem, 4.3vw, 4.2rem);
+    font-size: var(--type-section);
   }
 
   .experience-list,
@@ -407,10 +408,11 @@ const description =
 
   .career-content h3 {
     margin-bottom: 1rem;
-    font-size: clamp(1.65rem, 3vw, 2.5rem);
+    font-size: var(--type-item-title);
   }
 
   .career-content > p {
+    max-width: 65ch;
     color: var(--ink-soft);
   }
 
@@ -435,7 +437,7 @@ const description =
   }
 
   .technical-practice {
-    padding: clamp(2.5rem, 6vw, 5rem);
+    padding: var(--space-panel);
     border-radius: var(--radius-lg);
     background: var(--ink);
     color: white;
@@ -444,13 +446,13 @@ const description =
   .practice-heading {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 0.5fr);
-    gap: clamp(2rem, 7vw, 7rem);
+    gap: var(--space-grid);
     align-items: end;
-    margin-bottom: clamp(3.5rem, 7vw, 6rem);
+    margin-bottom: var(--space-heading);
   }
 
   .practice-heading h2 {
-    max-width: 13ch;
+    max-width: 22ch;
   }
 
   .practice-heading > p {
@@ -511,13 +513,13 @@ const description =
   .working-approach {
     display: grid;
     grid-template-columns: minmax(18rem, 0.68fr) minmax(0, 1fr);
-    gap: clamp(3rem, 8vw, 8rem);
-    padding-block: clamp(6rem, 11vw, 10rem);
+    gap: var(--space-grid);
+    padding-block: var(--space-section);
   }
 
   .approach-heading h2 {
-    max-width: 12ch;
-    font-size: clamp(2.7rem, 5vw, 4.9rem);
+    max-width: 18ch;
+    font-size: var(--type-section);
   }
 
   .approach-list {
@@ -546,16 +548,16 @@ const description =
   .contact-panel {
     display: grid;
     grid-template-columns: minmax(0, 0.65fr) minmax(18rem, 0.62fr) minmax(10rem, 0.3fr);
-    gap: clamp(2rem, 6vw, 6rem);
+    gap: var(--space-grid);
     align-items: end;
-    padding: clamp(2.5rem, 6vw, 5rem);
+    padding: var(--space-panel);
     border-radius: var(--radius-lg);
     background: var(--ink);
     color: white;
   }
 
   .contact-panel h2 {
-    font-size: clamp(2.5rem, 4.5vw, 4.3rem);
+    font-size: var(--type-section);
   }
 
   .contact-panel > p {
@@ -575,6 +577,22 @@ const description =
     align-items: center;
     font-size: 0.9rem;
     font-weight: 750;
+  }
+
+  @media (max-width: 1100px) {
+    .experience-list > li,
+    .education-list > li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.4rem;
+    }
+
+    .approach-list article {
+      grid-template-columns: 2.25rem minmax(0, 1fr);
+    }
+
+    .approach-list p {
+      grid-column: 2;
+    }
   }
 
   @media (max-width: 960px) {
@@ -643,7 +661,7 @@ const description =
 
     .about-hero {
       gap: 3rem;
-      padding-block: 3.5rem 4rem;
+      padding-block: var(--space-hero);
     }
 
     .about-back-link {
@@ -699,7 +717,7 @@ const description =
     .contact-panel h2 {
       width: 100%;
       max-width: none;
-      font-size: clamp(2.45rem, 12vw, 3.7rem);
+      font-size: var(--type-section);
       overflow-wrap: break-word;
     }
 
@@ -708,7 +726,7 @@ const description =
     }
 
     .career-grid {
-      padding-block: 6rem;
+      padding-block: var(--space-section);
     }
 
     .experience-list > li,
