@@ -69,18 +69,24 @@ const description =
             <li>
               <div class="career-meta">
                 <p>{item.period}</p>
-                <p>{item.organization}</p>
+                <p class="career-organization">{item.organization}</p>
+                <p class="career-location">{item.location}</p>
               </div>
-              <div class="career-content">
-                <h3>{item.role}</h3>
-                {item.detail.map((paragraph) => <p>{paragraph}</p>)}
-                <div class="career-links" aria-label={`${item.role} links`}>
-                  {item.links.map((link) => (
-                    <a href={link.url} target="_blank" rel="noopener">
-                      {link.label} <span aria-hidden="true">↗</span>
-                    </a>
-                  ))}
+              <h3 class="career-role">{item.role}</h3>
+              <div class="career-summary">
+                <p class="experience-context">{item.organizationDescription}</p>
+                <div class="experience-work">
+                  {item.detail.map((paragraph) => <p>{paragraph}</p>)}
                 </div>
+                {item.links.length > 0 && (
+                  <div class="career-links" aria-label={`${item.role} links`}>
+                    {item.links.map((link) => (
+                      <a href={link.url} target="_blank" rel="noopener">
+                        {link.label} <span aria-hidden="true">↗</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             </li>
           ))}
@@ -365,10 +371,11 @@ const description =
   }
 
   .career-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: var(--space-grid);
     padding-block: var(--space-section);
+  }
+
+  .education-section {
+    margin-top: var(--space-section);
   }
 
   .career-heading {
@@ -387,7 +394,6 @@ const description =
     list-style: none;
   }
 
-  .experience-list > li,
   .education-list > li {
     display: grid;
     grid-template-columns: minmax(8rem, 0.34fr) minmax(0, 1fr);
@@ -396,14 +402,48 @@ const description =
     border-bottom: 1px solid var(--line-strong);
   }
 
+  .experience-list > li {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.28fr) minmax(0, 1fr);
+    grid-template-areas:
+      "meta role"
+      "meta summary";
+    column-gap: clamp(2rem, 6vw, 5rem);
+    row-gap: 0.75rem;
+    padding-block: 2.25rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .experience-list .career-meta {
+    grid-area: meta;
+  }
+
+  .career-role {
+    grid-area: role;
+    margin: 0;
+    font-size: var(--type-item-title);
+  }
+
+  .career-summary {
+    grid-area: summary;
+    min-width: 0;
+  }
+
   .career-meta p {
     margin-bottom: 0.5rem;
   }
 
-  .career-meta p:last-child {
+  .experience-list .career-organization,
+  .education-list .career-meta p:last-child {
     color: var(--ink-soft);
     font-size: 0.86rem;
     font-weight: 650;
+    line-height: 1.4;
+  }
+
+  .experience-list .career-location {
+    color: var(--ink-soft);
+    font-size: 0.78rem;
     line-height: 1.4;
   }
 
@@ -412,13 +452,21 @@ const description =
     font-size: var(--type-item-title);
   }
 
-  .career-content > p {
-    max-width: 65ch;
+  .career-content > p,
+  .experience-context,
+  .experience-work > p {
     color: var(--ink-soft);
   }
 
-  .career-content > p:last-of-type {
+  .career-content > p:last-of-type,
+  .experience-work > p:last-child {
     margin-bottom: 0;
+  }
+
+  .experience-context {
+    margin-bottom: 0.65rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .career-links {
@@ -581,12 +629,6 @@ const description =
   }
 
   @media (max-width: 1100px) {
-    .experience-list > li,
-    .education-list > li {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 1.4rem;
-    }
-
     .approach-list article {
       grid-template-columns: 2.25rem minmax(0, 1fr);
     }
@@ -615,10 +657,6 @@ const description =
     .working-approach > *,
     .contact-panel > * {
       min-width: 0;
-    }
-
-    .career-grid {
-      gap: 6rem;
     }
 
     .contact-links {
@@ -733,8 +771,15 @@ const description =
     .experience-list > li,
     .education-list > li {
       grid-template-columns: 1fr;
-      gap: 1.4rem;
-      padding-block: 2.75rem;
+      gap: 1.1rem;
+      padding-block: 2.25rem;
+    }
+
+    .experience-list > li {
+      grid-template-areas:
+        "role"
+        "meta"
+        "summary";
     }
 
     .career-meta {
@@ -744,11 +789,21 @@ const description =
       align-items: start;
     }
 
+    .experience-list .career-meta {
+      grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr);
+    }
+
+    .experience-list .career-location {
+      grid-column: 2;
+    }
+
     .career-meta p {
       margin: 0;
     }
 
-    .career-content > p {
+    .career-content > p,
+    .experience-context,
+    .experience-work > p {
       line-height: 1.68;
     }
 

@@ -7,6 +7,8 @@ type ExperienceItem = {
   role: string;
   organization: string;
   period: string;
+  location: string;
+  organizationDescription: string;
   detail: string[];
   links: Link[];
 };
@@ -94,10 +96,12 @@ export const aboutPage = {
     {
       role: "Project Researcher",
       organization: "Novia University of Applied Sciences",
-      period: "Current",
+      period: "February 2024 to present",
+      location: "Turku, Finland",
+      organizationDescription:
+        "A Finnish university of applied sciences whose Maritime Technology RDI work covers digitalization, automation, simulation, data processing, and AI.",
       detail: [
-        "I develop research software for maritime and engineering projects involving document intelligence, machine learning, agentic systems, and simulation.",
-        "The work spans collaborative research prototypes and maintained software, including backend services, frontend interfaces, experiment tooling, packaging, tests, and technical publications.",
+        "I contribute to Novia’s Maritime Technology RDI work through the Virtual Sea Trial project. My work includes shared test environments for virtual sea trials, commissioning, and simulation-based system integration, with an emphasis on automation, data, and AI.",
       ],
       links: [
         {
@@ -107,6 +111,103 @@ export const aboutPage = {
         {
           label: "Research group",
           url: "https://intelligent-systems.fi/research-group/",
+        },
+      ],
+    },
+    {
+      role: "Data Scientist",
+      organization: "JUICER",
+      period: "August 2022 to August 2024",
+      location: "United States",
+      organizationDescription:
+        "A US software company providing restaurant pricing and margin-management tools using POS, sales, cost, and market data.",
+      detail: [
+        "I collected and prepared data, ran exploratory analyses, and built client-facing visual reports. I engineered features and deployed machine-learning models for time-series forecasting and price recommendations.",
+      ],
+      links: [
+        {
+          label: "JUICER",
+          url: "https://www.juicerpricing.com/",
+        },
+      ],
+    },
+    {
+      role: "AI Software Developer Intern",
+      organization: "SUPPLYZ Oy (now RESONIKS)",
+      period: "December 2022 to May 2023",
+      location: "Tampere Metropolitan Area, Finland",
+      organizationDescription:
+        "A Tampere-based engineering RDI company developing AI-assisted acoustic inspection and non-destructive testing for structural defects.",
+      detail: [
+        "I analyzed acoustic and relational datasets and developed machine-learning models. I also worked with MLflow, GCP, Vertex AI, BigQuery, Cloud Run, DVC, TensorFlow, and PyTorch in the development and deployment workflow.",
+      ],
+      links: [
+        {
+          label: "RESONIKS",
+          url: "https://www.resoniks.com/",
+        },
+      ],
+    },
+    {
+      role: "Assistant System Administrator",
+      organization: "Guaranty Trust Bank (Gambia) Ltd",
+      period: "October 2017 to October 2019",
+      location: "Fajara, The Gambia",
+      organizationDescription:
+        "An active Gambian commercial bank providing personal, business, corporate, and SME banking services.",
+      detail: [
+        "I supported application developers and support staff by maintaining Active Directory and server applications, testing and debugging banking systems, running end-of-day backups, and helping staff use operational applications.",
+      ],
+      links: [
+        {
+          label: "GTBank Gambia",
+          url: "https://www.gtbankgambia.com/",
+        },
+      ],
+    },
+    {
+      role: "Web Developer",
+      organization: "Xanda Limited",
+      period: "January 2017 to October 2017",
+      location: "London, United Kingdom",
+      organizationDescription:
+        "A London technology and digital agency providing website and software development services.",
+      detail: [
+        "I contributed to project development, implementation, testing, and release, with a focus on WordPress websites.",
+      ],
+      links: [
+        {
+          label: "Xanda",
+          url: "https://www.xanda.net/",
+        },
+      ],
+    },
+    {
+      role: "Quality Assurance Technician",
+      organization: "International Consumer Services Sweden AB / alaTest",
+      period: "April 2016 to September 2016",
+      location: "Stockholm, Sweden",
+      organizationDescription:
+        "A Stockholm company that collects and publishes consumer information through web portals and software services.",
+      detail: [
+        "I monitored the quality of review-to-product matching, provided feedback to production teams, and worked on delivery-flow and pipeline problems.",
+      ],
+      links: [],
+    },
+    {
+      role: "Lecturer and Course Trainer",
+      organization: "Management Development Institute",
+      period: "January 2014 to November 2015",
+      location: "The Gambia",
+      organizationDescription:
+        "A public Gambian institute providing professional training, research, and consultancy to public, private, and NGO sectors.",
+      detail: [
+        "I delivered Cisco networking training covering network cabling and inter-networking for homes and small to medium-sized organizations.",
+      ],
+      links: [
+        {
+          label: "Management Development Institute",
+          url: "https://www.mdi.edu.gm/",
         },
       ],
     },
@@ -133,7 +234,8 @@ export const aboutPage = {
       qualification: "Master’s degree in Computer Science",
       institution: "Ca’ Foscari University of Venice",
       period: "2022/2023",
-      detail: "My thesis was titled A comparison of classification algorithms.",
+      detail:
+        "My thesis compared Naive Bayes, k-nearest neighbours, logistic regression, and linear and quadratic discriminant analysis. I evaluated classification accuracy and precision through simulations and an application to a real dataset, with the analysis implemented in R.",
       links: [
         {
           label: "Official UNITesi record",
@@ -235,7 +337,7 @@ export const aboutPage = {
     {
       subject: "Ca’ Foscari thesis record",
       url: "https://unitesi.unive.it/handle/20.500.14247/11685",
-      purpose: "Author, thesis title, academic year, course of study, and degree level.",
+      purpose: "Author, thesis title, abstract, methods, academic year, course of study, and degree level.",
     },
     {
       subject: "ANCHOR case-study sources",
