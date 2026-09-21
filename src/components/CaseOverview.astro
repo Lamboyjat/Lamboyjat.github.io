@@ -1,0 +1,93 @@
+---
+import type { CaseOverview } from "../data/case-overview";
+
+interface Props {
+  overview: CaseOverview;
+  results: string[];
+  technologies: string[];
+  links: { label: string; url: string }[];
+}
+
+const { overview, results, technologies, links } = Astro.props;
+---
+
+<section class="case-overview" aria-labelledby="overview-title">
+  <p class="eyebrow">Project overview</p>
+  <h2 id="overview-title">The work in brief</h2>
+  <div class="overview-grid">
+    <div>
+      <h3>My contribution</h3>
+      <p>{overview.contribution}</p>
+    </div>
+    <div>
+      <h3>System and approach</h3>
+      <p>{overview.approach}</p>
+    </div>
+    <div class="overview-result">
+      <h3>Result and context</h3>
+      {results.map((result) => <p>{result}</p>)}
+    </div>
+  </div>
+  <ul class="technology-list" aria-label="Selected technologies">
+    {technologies.map((technology) => <li>{technology}</li>)}
+  </ul>
+  <nav class="overview-links" aria-label="Case study sections">
+    {links.map((link) => <a href={link.url}>{link.label} <span aria-hidden="true">↓</span></a>)}
+  </nav>
+</section>
+
+<style>
+  .case-overview {
+    padding-block: var(--space-heading);
+    border-bottom: 1px solid var(--line);
+  }
+
+  h2 {
+    margin-bottom: var(--space-heading);
+    font-size: var(--type-section);
+  }
+
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-heading) var(--space-grid);
+  }
+
+  h3 {
+    margin-bottom: 0.75rem;
+    color: var(--accent-dark);
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+
+  .overview-grid p {
+    max-width: 72ch;
+    margin-bottom: 0.75rem;
+    color: var(--ink-soft);
+  }
+
+  .overview-grid p:last-child { margin-bottom: 0; }
+  .overview-result { grid-column: 1 / -1; }
+
+  .overview-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem var(--space-heading);
+    margin-top: var(--space-heading);
+  }
+
+  .overview-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2rem;
+    color: var(--accent-dark);
+    font-size: 0.95rem;
+    font-weight: 650;
+  }
+
+  @media (max-width: 860px) {
+    .overview-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

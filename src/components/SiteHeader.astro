@@ -1,9 +1,10 @@
 ---
 const homePrefix = Astro.url.pathname === "/" ? "" : "/";
+const pathname = Astro.url.pathname;
 const navItems = [
-  { label: "Work", href: `${homePrefix}#selected-work` },
-  { label: "Research", href: "/research/" },
-  { label: "About", href: "/about/" },
+  { label: "Work", href: `${homePrefix}#selected-work`, isActive: pathname.startsWith("/work/") },
+  { label: "Research", href: "/research/", isActive: pathname.startsWith("/research/") },
+  { label: "About", href: "/about/", isActive: pathname.startsWith("/about/") },
 ];
 
 const githubUrl = "https://github.com/Lamboyjat";
@@ -18,7 +19,7 @@ const githubUrl = "https://github.com/Lamboyjat";
   <nav class="desktop-nav" aria-label="Primary navigation">
     <ul>
       {navItems.map((item) => (
-        <li><a href={item.href}>{item.label}</a></li>
+        <li><a href={item.href} aria-current={item.isActive ? "page" : undefined}>{item.label}</a></li>
       ))}
       <li>
         <a class="github-link" href={githubUrl} rel="me noopener" target="_blank">
@@ -37,7 +38,7 @@ const githubUrl = "https://github.com/Lamboyjat";
       <nav aria-label="Mobile navigation">
         <ul>
           {navItems.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
+            <li><a href={item.href} aria-current={item.isActive ? "page" : undefined}>{item.label}</a></li>
           ))}
         </ul>
       </nav>
@@ -50,5 +51,23 @@ const githubUrl = "https://github.com/Lamboyjat";
     menu.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
       link.addEventListener("click", () => menu.removeAttribute("open"));
     });
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as Node | null;
+    document.querySelectorAll<HTMLDetailsElement>(".mobile-menu[open]").forEach((menu) => {
+      if (!menu.contains(target)) {
+        menu.removeAttribute("open");
+      }
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      document.querySelectorAll<HTMLDetailsElement>(".mobile-menu[open]").forEach((menu) => {
+        menu.removeAttribute("open");
+        menu.querySelector<HTMLElement>("summary")?.focus();
+      });
+    }
   });
 </script>

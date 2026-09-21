@@ -9,7 +9,7 @@ interface Props {
 }
 
 const {
-  title = "Lamin Jatta | AI Software Developer, Data Scientist & Researcher",
+  title = "Lamin Jatta | AI Software Engineer & Researcher",
   description = "Portfolio of Lamin Jatta: agentic AI systems, RAG, document intelligence, knowledge systems, simulation, and applied machine learning.",
 } = Astro.props;
 
@@ -33,7 +33,7 @@ const socialImage = new URL(socialPreview.src, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content="Lamin Jatta, AI Software Developer and Data Scientist" />
+    <meta property="og:image:alt" content="Lamin Jatta, AI Software Engineer and Researcher" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -53,7 +53,12 @@ const socialImage = new URL(socialPreview.src, Astro.site);
       <footer class="site-footer">
         <p>© {new Date().getFullYear()} Lamin Jatta</p>
         <p>AI systems built around evidence, traceability, and real engineering work.</p>
+        <a class="footer-contact" href="/#contact">Contact</a>
       </footer>
     </div>
   </body>
 </html>
+
+<style>
+  .footer-contact { display: inline-flex; align-items: center; min-height: 1.5rem; font-weight: 650; }
+</style>

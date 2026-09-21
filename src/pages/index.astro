@@ -4,6 +4,13 @@ import { getCollection } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import portrait from "../../pic/Lamin Jatta nr 1 färg.jpg";
+import { aboutPage } from "../data/about";
+import { researchPage } from "../data/research";
+
+const currentRole = aboutPage.experience[0];
+const selectedResearch = researchPage.areas.filter((area) =>
+  ["maritime-asr", "meri", "agent-in-the-loop"].includes(area.slug),
+);
 
 const projects = (await getCollection(
   "projects",
@@ -14,26 +21,29 @@ const projects = (await getCollection(
 <BaseLayout>
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <p class="eyebrow">AI software developer · Data scientist · Researcher</p>
+      <p class="eyebrow">AI Software Engineer & Researcher</p>
+      <p class="hero-specializations">Agentic AI · Document Intelligence · Engineering AI · Applied ML</p>
       <h1 id="hero-title">I build AI systems that connect evidence, agents, and engineering workflows.</h1>
       <p class="hero-intro">
-        I’m Lamin Jatta, a project researcher and software developer working across agentic AI,
-        document intelligence, RAG, knowledge systems, simulation, and applied machine learning.
+        I’m Lamin Jatta, a project researcher at Novia University of Applied Sciences.
+        I build software for engineering and maritime research, connecting technical documents,
+        agent workflows, and simulation.
       </p>
       <div class="hero-actions">
         <a class="button button-primary" href="#selected-work">Explore selected work</a>
-        <a class="button button-secondary" href="https://github.com/Lamboyjat" target="_blank" rel="me noopener">
-          View GitHub <span aria-hidden="true">↗</span>
-        </a>
+        <a class="button button-secondary" href="#contact">Contact</a>
       </div>
-      <dl class="hero-facts" aria-label="Professional focus">
+      <dl class="hero-facts credibility-strip" aria-label="Professional context and research outputs">
         <div>
-          <dt>Current focus</dt>
-          <dd>Agentic AI & document intelligence</dd>
+          <dt>Current role</dt>
+          <dd><a href="/about/">{currentRole.role}<br />{currentRole.organization}</a></dd>
         </div>
         <div>
-          <dt>Research context</dt>
-          <dd>Engineering and maritime systems</dd>
+          <dt>Research outputs</dt>
+          <dd>
+            <a href="/research/#meri">MERI · IFAC 2025</a>
+            <a href="/research/#agent-in-the-loop">Agent-in-the-Loop · ECC 2026</a>
+          </dd>
         </div>
       </dl>
     </div>
@@ -72,13 +82,17 @@ const projects = (await getCollection(
   </section>
 
   <section class="research-strip" id="research" aria-labelledby="research-title">
-    <p class="eyebrow">Research trajectory</p>
+    <p class="eyebrow">Research & publications</p>
     <div>
       <h2 id="research-title">From domain-specific language systems to agent-driven engineering tools.</h2>
-      <p>
-        My work spans maritime speech transcription, multimodal engineering-document extraction,
-        source-grounded knowledge interfaces, and agents that execute and evaluate simulation tasks.
-      </p>
+      <ul class="research-output-list">
+        {selectedResearch.map((area) => (
+          <li>
+            <a href={`/research/#${area.slug}`}>{area.title}</a>
+            <span>{area.status}</span>
+          </li>
+        ))}
+      </ul>
     </div>
     <a href="/research/">
       Explore research <span aria-hidden="true">→</span>
@@ -93,4 +107,41 @@ const projects = (await getCollection(
       executable tools, measurable behavior, and interfaces people can inspect.
     </p>
   </section>
+
+  <section class="home-contact" id="contact" aria-labelledby="contact-title">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title">Get in touch</h2>
+    </div>
+    <div class="contact-links" aria-label="Contact and profiles">
+      {aboutPage.contact.links.map((link) => (
+        <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel={link.url.startsWith("http") ? "me noopener" : undefined}>
+          {link.label} <span aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .hero-specializations { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 1.25rem; }
+  .credibility-strip dd { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+  .credibility-strip dd a { display: inline-block; min-height: 1.5rem; }
+  .research-output-list { display: grid; gap: 1rem; margin: var(--space-heading) 0 0; padding: 0; list-style: none; }
+  .research-output-list a { display: inline-block; min-height: 1.5rem; font-weight: 650; }
+  .research-output-list span { display: block; color: #cad3d8; font-size: 0.9rem; }
+  .home-contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-heading); padding-bottom: var(--space-heading); }
+  .home-contact h2 { margin: 0; font-size: var(--type-item-title); }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem var(--space-heading); }
+  .contact-links a { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2rem; color: var(--accent-dark); font-weight: 650; }
+
+  @media (max-width: 860px) {
+    .hero-specializations { order: 0; }
+    .hero .credibility-strip { order: 4; }
+    .hero .portrait-frame { order: 5; }
+  }
+
+  @media (max-width: 620px) {
+    .hero .credibility-strip { margin-top: var(--space-heading); gap: 1rem; }
+  }
+</style>

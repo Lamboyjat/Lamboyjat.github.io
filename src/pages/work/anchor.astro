@@ -1,6 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseOverview from "../../components/CaseOverview.astro";
 import { anchorCaseStudy as caseStudy } from "../../data/anchor-case-study";
 
 const project = await getEntry("projects", "anchor");
@@ -53,6 +54,17 @@ const publicReferences = caseStudy.evidence.filter((reference) => reference.publ
         </div>
       </dl>
     </header>
+
+    <CaseOverview
+      overview={caseStudy.overview}
+      results={[caseStudy.overview.result]}
+      technologies={caseStudy.technology.flatMap((group) => group.technologies).filter((item) => ["Python 3.12", "FastAPI", "MCP", "React 19", "Docling"].includes(item))}
+      links={[
+        { label: "My contribution", url: "#contribution-title" },
+        { label: "Architecture", url: "#architecture-title" },
+        { label: "Sources", url: "#evidence-title" },
+      ]}
+    />
 
     <section class="case-section case-problem" aria-labelledby="problem-title">
       <div class="case-section-label">
@@ -272,8 +284,9 @@ const publicReferences = caseStudy.evidence.filter((reference) => reference.publ
 
   .case-back-link {
     display: inline-flex;
-    min-height: 1.5rem;
+    min-height: 2.5rem;
     align-items: center;
+    padding-block: 0.35rem;
     margin-bottom: var(--space-heading);
     color: var(--ink-soft);
     font-family: var(--font-mono);

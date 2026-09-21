@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { meriCaseStudy as caseStudy } from "../../data/meri-case-study";
+import { Image } from "astro:assets";
+import CaseOverview from "../../components/CaseOverview.astro";
+import { meriCaseStudy as caseStudy, meriEvaluation, meriFindings } from "../../data/meri-case-study";
+import methodFigure from "../../assets/meri/method.png";
 
 const title = "MERI case study | Lamin Jatta";
 const description =
@@ -49,6 +52,29 @@ const description =
         </dl>
       </div>
     </header>
+
+    <CaseOverview
+      overview={caseStudy.overview}
+      results={[meriEvaluation.setup, meriFindings]}
+      technologies={caseStudy.technology.flatMap((group) => group.technologies).filter((item) => ["Python", "Docling", "HTML", "JSON Schema", "GPT-4o"].includes(item))}
+      links={[
+        { label: "My contribution", url: "#contribution-title" },
+        { label: "Pipeline", url: "#pipeline-title" },
+        { label: "Published evaluation", url: "#relationship-title" },
+      ]}
+    />
+
+    <figure class="method-figure">
+      <a href={methodFigure.src} aria-label="Open the full-size MERI method figure">
+        <Image src={methodFigure} alt="MERI method: layout analysis and structuring convert document elements to HTML; a language model uses that representation, the task prompt, and JSON schema to extract parameters." loading="lazy" />
+      </a>
+      <figcaption>
+        MERI's two-stage extraction method.{" "}
+        <a href="https://github.com/Novia-RDI-Seafaring/MERI/blob/main/media/meri.png" target="_blank" rel="noopener">Source: MERI project</a>,
+        © 2024 Novia University of Applied Sciences, MIT license.{" "}
+        <a href={methodFigure.src}>Open full-size figure</a>.
+      </figcaption>
+    </figure>
 
     <section class="content-section problem-section" aria-labelledby="problem-title">
       <div class="section-marker">
@@ -269,6 +295,17 @@ const description =
 </BaseLayout>
 
 <style>
+  .method-figure {
+    margin: var(--space-heading) 0;
+    padding: var(--space-panel);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+
+  .method-figure img { width: 100%; max-width: 49rem; height: auto; margin-inline: auto; }
+  .method-figure figcaption { margin-top: var(--space-heading); color: var(--ink-soft); font-size: 0.9rem; }
+
   .meri-study {
     padding-bottom: clamp(3rem, 8vw, 7rem);
   }
@@ -293,8 +330,9 @@ const description =
 
   .back-link {
     display: inline-flex;
-    min-height: 1.5rem;
+    min-height: 2.5rem;
     align-items: center;
+    padding-block: 0.35rem;
     margin-bottom: var(--space-heading);
     color: var(--ink-soft);
     font-family: var(--font-mono);

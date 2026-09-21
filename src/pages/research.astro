@@ -17,6 +17,7 @@ const description =
       </div>
       <div class="research-overview">
         {researchPage.overview.map((paragraph) => <p>{paragraph}</p>)}
+        <a class="bibliography-jump" href="#publications-title">Publications and accepted work <span aria-hidden="true">↓</span></a>
       </div>
     </header>
 
@@ -76,21 +77,30 @@ const description =
                 </ul>
               </div>
 
+              {"evaluation" in area && area.evaluation && (
+                <div class="research-evaluation">
+                  <h4>Evaluation</h4>
+                  <p>{area.evaluation}</p>
+                </div>
+              )}
+
               <div class="research-outcome">
                 <h4>Result</h4>
                 <p>{area.outcome}</p>
               </div>
 
               <div class="research-links" aria-label={`${area.shortTitle} links`}>
-                {area.links.map((link) => (
-                  <a
-                    href={link.url}
-                    target={link.url.startsWith("http") ? "_blank" : undefined}
-                    rel={link.url.startsWith("http") ? "noopener" : undefined}
-                  >
-                    {link.label} <span aria-hidden="true">{link.url.startsWith("http") ? "↗" : "→"}</span>
-                  </a>
-                ))}
+                <div class="research-links-list">
+                  {area.links.map((link) => (
+                    <a
+                      href={link.url}
+                      target={link.url.startsWith("http") ? "_blank" : undefined}
+                      rel={link.url.startsWith("http") ? "noopener" : undefined}
+                    >
+                      {link.label} <span aria-hidden="true">{link.url.startsWith("http") ? "↗" : "→"}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </article>
@@ -156,6 +166,8 @@ const description =
 </BaseLayout>
 
 <style>
+  .bibliography-jump { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2rem; color: var(--accent-dark); font-weight: 650; }
+
   .research-page {
     padding-bottom: clamp(4rem, 9vw, 8rem);
   }
@@ -171,8 +183,9 @@ const description =
 
   .research-back-link {
     display: inline-flex;
-    min-height: 1.5rem;
+    min-height: 2.5rem;
     align-items: center;
+    padding-block: 0.35rem;
     margin-bottom: var(--space-heading);
     color: var(--ink-soft);
     font-family: var(--font-mono);
@@ -316,6 +329,7 @@ const description =
   .research-problem,
   .research-contribution,
   .research-methods,
+  .research-evaluation,
   .research-outcome {
     display: grid;
     grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr);
@@ -331,6 +345,7 @@ const description =
 
   .research-problem p,
   .research-contribution p,
+  .research-evaluation p,
   .research-outcome p {
     margin: 0;
     color: var(--ink-soft);
@@ -357,15 +372,21 @@ const description =
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.42);
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   .research-links {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    margin-top: 1.25rem;
+  }
+
+  .research-links-list {
+    grid-column: 2;
     display: flex;
     flex-wrap: wrap;
     gap: 0.7rem 1.25rem;
-    margin-top: 1.25rem;
-    padding-left: calc(28% + 4rem);
   }
 
   .research-links a {
@@ -528,9 +549,7 @@ const description =
       gap: 1.5rem;
     }
 
-    .research-links {
-      padding-left: calc(28% + 1.5rem);
-    }
+
   }
 
   @media (max-width: 720px) {
@@ -585,7 +604,7 @@ const description =
 
     .research-item-meta dt {
       padding-top: 0.08rem;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
     }
 
     .research-item-meta dd {
@@ -601,14 +620,17 @@ const description =
     .research-problem,
     .research-contribution,
     .research-methods,
+    .research-evaluation,
     .research-outcome,
-    .research-contribution > div {
+    .research-contribution > div,
+    .research-links {
       grid-template-columns: 1fr;
     }
 
     .research-problem,
     .research-contribution,
     .research-methods,
+    .research-evaluation,
     .research-outcome {
       gap: 0.75rem;
       padding-block: 1.9rem;
@@ -616,6 +638,7 @@ const description =
 
     .research-problem p,
     .research-contribution p,
+    .research-evaluation p,
     .research-outcome p {
       line-height: 1.68;
     }
@@ -629,9 +652,12 @@ const description =
     }
 
     .research-links {
-      gap: 0.65rem 1.1rem;
       margin-top: 1.75rem;
-      padding-left: 0;
+    }
+
+    .research-links-list {
+      grid-column: 1;
+      gap: 0.65rem 1.1rem;
     }
 
     .research-links a {

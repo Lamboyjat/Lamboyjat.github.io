@@ -1,7 +1,7 @@
 ---
 title: "MERI: Modality-Aware Extraction and Retrieval"
 shortTitle: "MERI"
-summary: "A research framework for extracting parameters from heterogeneous engineering documents through modality-aware preprocessing and retrieval."
+summary: "A research framework that converts mixed-layout engineering PDFs into source-linked HTML, then extracts parameters through a defined schema."
 problem: "Dense tables, small margins, mixed layouts, and inconsistent formatting make engineering documents difficult for automated extraction systems to interpret reliably."
 contribution: "Contributed layout-detection and pipeline-configuration improvements, dependency and security updates, validation work, and project documentation within the collaborative research codebase."
 roleLabel: "Research collaborator and contributor"
@@ -18,10 +18,10 @@ technologies:
   - "Layout Detection"
 homepageTechnologies:
   - "Python"
-  - "Document AI"
-  - "Information Retrieval"
+  - "HTML"
+  - "JSON Schema"
   - "Layout Detection"
-homepageContribution: "Improved layout detection and pipeline configuration, and contributed validation, dependency and security updates, and project documentation."
+homepageContribution: "I worked on layout evaluation, common extraction paths, and the interactive demo with source highlighting in the earlier research implementation. The method and published results are shared team work."
 caseStudyPath: "/work/meri/"
 engineeringDecisions:
   - "Convert source documents into machine-friendly intermediate representations before extraction."

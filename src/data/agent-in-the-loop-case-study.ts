@@ -1,3 +1,5 @@
+import type { CaseOverview } from "./case-overview";
+
 type SourceLink = {
   label: string;
   url: string;
@@ -47,6 +49,7 @@ type InternalReview = {
 };
 
 export type AgentInTheLoopCaseStudy = {
+  overview: CaseOverview;
   title: string;
   paperTitle: string;
   problemStatement: string;
@@ -96,6 +99,12 @@ export type AgentInTheLoopCaseStudy = {
 };
 
 export const agentInTheLoopCaseStudy = {
+  overview: {
+    contribution:
+      "I implemented the initial PydanticAI tool-calling path and worked on experiment execution, reporting, evaluator fixes, and separation of the control toolbox. Christoffer Björkskog, Mikael Manngård, and I share the research work. My separate planning/guardrail experiments were not part of the published benchmark or current main.",
+    approach:
+      "Typed tools execute FMU simulations, analysis, identification, and controller tuning. Task-specific evaluators check numerical responses and tool use. The published setup used GPT-5-mini on Azure OpenAI, one FOPDT plant, and a PI controller, not a general industrial benchmark.",
+  },
   title: "Agent-in-the-Loop",
   paperTitle: "Using AI Agents to Perform Control-Oriented Simulation Tasks",
   problemStatement:

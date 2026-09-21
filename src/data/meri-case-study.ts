@@ -1,3 +1,19 @@
+import type { CaseOverview } from "./case-overview";
+
+// Published experiment, not a claim about every current runtime configuration.
+// Paper sections 4–5, Table 2 and Figure 5; source retained in internalReview.
+export const meriEvaluation = {
+  layoutVariations: 16,
+  parameterTasks: 512,
+  meanF1: 79.19,
+  completeRecordF1: 44.14,
+  setup:
+    "The study tested 16 synthetic layouts of one content document, with 32 parameters per layout. It used Docling, EasyOCR, and GPT-4o at temperature zero, without chunking.",
+};
+
+export const meriFindings =
+  `MERI reached ${meriEvaluation.meanF1}% mean F1 when averaged over attributes and subtasks. Requiring all four attributes (value, unit, page, and bounding box) to be correct gave ${meriEvaluation.completeRecordF1}% mean F1. The intermediate representation improved extraction over the direct baseline, but layout errors still limited reliability.`;
+
 type SourceLink = {
   label: string;
   url: string;
@@ -40,6 +56,7 @@ type InternalReview = {
 };
 
 export type MeriCaseStudy = {
+  overview: CaseOverview;
   title: string;
   fullName: string;
   paperTitle: string;
@@ -88,6 +105,12 @@ export type MeriCaseStudy = {
 };
 
 export const meriCaseStudy = {
+  overview: {
+    contribution:
+      "I worked on layout evaluation, common extraction paths, and the demo's source highlighting in the earlier research implementation. Christian Möller introduced the Docling and FastHTML refactor used on current main. The method, benchmark, and paper are shared work with the author team.",
+    approach:
+      "MERI converts detected text, tables, and figures to source-linked HTML, then uses a multimodal model to populate a parameter schema. Values retain page and bounding-box attributes. Vector retrieval and a RAG index are not part of current main.",
+  },
   title: "MERI",
   fullName: "Modality-Aware Extraction and Retrieval of Information",
   paperTitle: "Towards Automated Parameter Extraction from Engineering Documents",
@@ -259,9 +282,9 @@ export const meriCaseStudy = {
       detail:
         "The study used Docling, EasyOCR, GPT-4o with temperature zero, and documents that fit within one model context. It compared MERI with a direct language-model baseline and with ground-truth HTML.",
       facts: [
-        { value: "16", label: "layout variations" },
-        { value: "512", label: "parameter tasks" },
-        { value: "79.19%", label: "MERI mean F1" },
+        { value: String(meriEvaluation.layoutVariations), label: "layout variations" },
+        { value: String(meriEvaluation.parameterTasks), label: "parameter tasks" },
+        { value: `${meriEvaluation.meanF1}%`, label: "MERI mean F1" },
       ],
     },
     repository: {

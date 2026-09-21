@@ -55,7 +55,8 @@ a {
 }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 4px;
 }
@@ -247,7 +248,7 @@ h1 {
 .hero-facts dt {
   color: var(--ink-soft);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -292,7 +293,7 @@ h1 {
   color: white;
   backdrop-filter: blur(8px);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -438,7 +439,7 @@ h1 {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.48);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
 }
 
 .evidence-links {
@@ -629,7 +630,8 @@ h1 {
     padding: 0.45rem;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-sm);
-    background: var(--paper);
+    background: var(--surface);
+    box-shadow: 0 10px 25px -5px rgba(11, 23, 34, 0.16), 0 8px 10px -6px rgba(11, 23, 34, 0.08);
   }
 
   .mobile-menu nav ul {
@@ -706,7 +708,7 @@ h1 {
   }
 
   .portrait-label {
-    font-size: 0.73rem;
+    font-size: 0.75rem;
   }
 
   .contribution {

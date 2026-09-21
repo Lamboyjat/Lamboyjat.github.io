@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { projectHighlights } from "../data/project-highlights";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -10,7 +11,8 @@ const { project, index } = Astro.props;
 const { data } = project;
 const isFlagship = data.flagship;
 const homepageTechnologies = data.homepageTechnologies ?? data.technologies.slice(0, isFlagship ? 5 : 4);
-const homepageEvidence = data.evidence
+const highlight = projectHighlights[project.id];
+const homepageEvidence = highlight?.links ?? data.evidence
   .filter((item) => item.type !== "commit-history")
   .slice(0, data.caseStudyPath ? 1 : 2);
 ---
@@ -30,6 +32,15 @@ const homepageEvidence = data.evidence
       <p>{data.homepageContribution ?? data.contribution}</p>
     </div>
 
+    {highlight && (
+      <div class="project-result">
+        <ul aria-label={`${data.shortTitle} results and context`}>
+          {highlight.indicators.map((indicator) => <li>{indicator}</li>)}
+        </ul>
+        {highlight.context && <p>{highlight.context}</p>}
+      </div>
+    )}
+
     <ul class="technology-list" aria-label={`${data.shortTitle} technologies`}>
       {homepageTechnologies.map((technology) => <li>{technology}</li>)}
     </ul>
@@ -42,10 +53,17 @@ const homepageEvidence = data.evidence
       )}
       {homepageEvidence.map((item) => (
         <a href={item.url} target="_blank" rel="noopener">
-          {isFlagship && item.type === "repository" ? "View ANCHOR repository" : item.label}
+          {item.label}
           <span aria-hidden="true"> ↗</span>
         </a>
       ))}
     </div>
   </div>
 </article>
+
+<style>
+  .project-result { grid-column: 1 / -1; }
+  .project-result ul { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; margin: 0; padding: 0; list-style: none; }
+  .project-result li { color: var(--accent-dark); font-size: 0.9rem; font-weight: 650; }
+  .project-result p { margin: 0.35rem 0 0; color: var(--ink-soft); font-size: 0.9rem; }
+</style>

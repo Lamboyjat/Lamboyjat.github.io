@@ -1,3 +1,5 @@
+import type { CaseOverview } from "./case-overview";
+
 type EvidenceLink = {
   label: string;
   url: string;
@@ -36,6 +38,7 @@ type TechnologyGroup = {
 };
 
 export type AnchorCaseStudy = {
+  overview: CaseOverview & { result: string };
   title: string;
   problemStatement: string;
   role: string;
@@ -69,6 +72,14 @@ const commitUrl = (sha: string) =>
   `https://github.com/Novia-RDI-Seafaring/anchor/commit/${sha}`;
 
 export const anchorCaseStudy = {
+  overview: {
+    contribution:
+      "I worked on source-grounded extraction, shared runtime composition, synchronization, extension discovery, and environment-owned data boundaries. Christoffer and I co-developed the platform; he built the v2 hexagonal foundation, and the wider project is shared Novia work.",
+    approach:
+      "People and agents use the same project runtime through the canvas, HTTP, MCP, and CLI. Extracted values retain document source regions. The application is local-first and single-tenant, with one server process writing project state.",
+    result:
+      "An open-source engineering workspace with inspectable source links and executable tools. The repository contains the implementation and tests; Novia's project story describes the collaborative work.",
+  },
   title: "ANCHOR",
   problemStatement:
     "ANCHOR brings technical documents, extracted knowledge, agent actions, and simulation work into one shared workspace, with links back to the source material.",

@@ -1,3 +1,6 @@
+import { meriEvaluation, meriFindings } from "./meri-case-study";
+import { agentInTheLoopCaseStudy } from "./agent-in-the-loop-case-study";
+
 type ResearchLink = {
   label: string;
   url: string;
@@ -14,6 +17,7 @@ type ResearchArea = {
   problem: string;
   contribution: string[];
   methods: string[];
+  evaluation?: string;
   outcome: string;
   links: ResearchLink[];
 };
@@ -97,7 +101,6 @@ export const researchPage = {
         "Engineering PDFs mix text, tables, figures, and layouts that vary between manufacturers. Directly asking a model for parameters can miss this structure and make it difficult to locate the source of an extracted value.",
       contribution: [
         "MERI was collaborative work with Christian Möller, Christoffer Björkskog, Andreas Lundell, Mikael Manngård, and Johan Westö. I contributed to layout evaluation, unified extraction paths for different document elements, and source highlighting in the project demo.",
-        "I later worked on pipeline configuration, dependency maintenance, and security-related updates. These changes supported the research workflow without changing the broader team ownership of the method or paper.",
       ],
       methods: [
         "Layout detection",
@@ -106,8 +109,8 @@ export const researchPage = {
         "Multimodal LLMs",
         "Synthetic document evaluation",
       ],
-      outcome:
-        "The study found that converting a document into a machine-friendly intermediate representation improved parameter extraction compared with a direct approach. It also found that further work was needed before extraction could be treated as reliable across engineering documents.",
+      evaluation: meriEvaluation.setup,
+      outcome: meriFindings,
       links: [
         {
           label: "View case study",
@@ -138,12 +141,12 @@ export const researchPage = {
       title: "Agent-in-the-Loop",
       shortTitle: "Agent-in-the-Loop",
       role: "Co-author and software contributor",
-      status: "Published and presented at ECC 2026",
+      status: "Published conference paper · ECC 2026",
       problem:
         "A control-engineering agent has to do more than produce a plausible answer. It must choose tools, run simulations, interpret numerical outputs, and carry intermediate results through tasks such as system identification and controller tuning.",
       contribution: [
-        "Christoffer Björkskog, Mikael Manngård, and I developed and evaluated the research system. I implemented the initial PydanticAI tool-calling path and worked on experiment execution, evaluation reporting, result export, and evaluator debugging.",
-        "I later reorganized the current repository into clearer agent, experiment, evaluation, and command-line layers. I also explored planning and tool-precondition guardrails on a separate development branch. That branch was not part of the published benchmark and is not present on current main. The benchmark design, control methods, paper, and final system were shared work.",
+        "Christoffer Björkskog, Mikael Manngård, and I developed and evaluated the research system. I implemented the initial PydanticAI tool-calling path and contributed experiment execution, reporting, and evaluator debugging. The benchmark design, control methods, and paper were shared work.",
+        "My separate planning and tool-precondition experiments were not part of the published benchmark and are not on current main.",
       ],
       methods: [
         "PydanticAI",
@@ -152,8 +155,9 @@ export const researchPage = {
         "Ground-truth evaluators",
         "Six-task benchmark",
       ],
-      outcome:
-        "Across six benchmark tasks, every run satisfied the response evaluators, but redundant and non-optimal tool calls increased with task complexity. The result was published in the ECC 2026 proceedings and presented in Reykjavík.",
+      evaluation:
+        "The study used GPT-5-mini on Azure OpenAI with one FOPDT plant and a PI controller. Six tasks increased from single simulations to iterative tuning. Numerical responses were checked against deterministic calculations, and tool-use evaluators inspected required actions and repeated calls. This controlled setup does not establish general control-engineering autonomy.",
+      outcome: `${agentInTheLoopCaseStudy.evaluation.result} ${agentInTheLoopCaseStudy.evaluation.interpretation} The work was published in the ECC 2026 proceedings.`,
       links: [
         {
           label: "View case study",
@@ -180,7 +184,7 @@ export const researchPage = {
       title: "Agentic Generation of GUI End-to-End Tests for Microservice-Based Systems",
       shortTitle: "Agentic GUI test generation",
       role: "Second author and software contributor",
-      status: "Accepted for presentation at QUATIC 2026",
+      status: "Accepted full paper, QUATIC 2026",
       problem:
         "Generating a GUI test is not enough if it only reproduces isolated clicks. The research asks how an agent can use system and use-case specifications to produce executable end-to-end tests for a microservice application while retaining a structured journey that can be evaluated.",
       contribution: [
@@ -195,7 +199,7 @@ export const researchPage = {
         "Evaluation and reporting",
       ],
       outcome:
-        "The collaborative work resulted in a full paper accepted for presentation at QUATIC 2026. The programme schedules it in the Quality for AI session on 10 September 2026 at 12:10 in Genoa, Italy.",
+        "The collaborative work resulted in an accepted full paper at QUATIC 2026. The official programme lists it in the Quality for AI session on 10 September 2026 in Genoa, Italy.",
       links: [
         {
           label: "Current project repository",
@@ -218,7 +222,7 @@ export const researchPage = {
       type: "Accepted full paper",
       title: "Agentic Generation of GUI End-to-End Tests for Microservice-Based Systems",
       authors: "Elena Ovsiannikova, Lamin Jatta, and co-authors",
-      venue: "Accepted for presentation at QUATIC 2026, Quality for AI, Genoa, Italy",
+      venue: "QUATIC 2026, Quality for AI, Genoa, Italy",
       links: [
         {
           label: "Programme",
