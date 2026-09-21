@@ -204,12 +204,7 @@ export const aboutPage = {
       detail: [
         "I delivered Cisco networking training covering network cabling and inter-networking for homes and small to medium-sized organizations.",
       ],
-      links: [
-        {
-          label: "Management Development Institute",
-          url: "https://www.mdi.edu.gm/",
-        },
-      ],
+      links: [],
     },
   ],
   education: [
