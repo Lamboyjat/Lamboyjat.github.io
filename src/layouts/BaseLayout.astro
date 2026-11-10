@@ -6,11 +6,13 @@ import socialPreview from "../../pic/lamjat.png";
 interface Props {
   title?: string;
   description?: string;
+  simpleProfile?: boolean;
 }
 
 const {
   title = "Lamin Jatta | AI Software Engineer & Researcher",
   description = "Portfolio of Lamin Jatta: agentic AI systems, RAG, document intelligence, knowledge systems, simulation, and applied machine learning.",
+  simpleProfile = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -45,20 +47,22 @@ const socialImage = new URL(socialPreview.src, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="site-shell">
-      <SiteHeader />
+    <div class:list={["site-shell", { "site-shell--profile": simpleProfile }]}>
+      {!simpleProfile && <SiteHeader />}
       <main id="main-content" tabindex="-1">
         <slot />
       </main>
       <footer class="site-footer">
         <p>© {new Date().getFullYear()} Lamin Jatta</p>
-        <p>AI systems built around evidence, traceability, and real engineering work.</p>
-        <a class="footer-contact" href="/#contact">Contact</a>
+        {!simpleProfile && <p>AI systems built around evidence, traceability, and real engineering work.</p>}
+        <a class="footer-contact" href={simpleProfile ? "/" : "/profile/"}>{simpleProfile ? "Explore the full portfolio" : "Simple profile"}</a>
+        {!simpleProfile && <a class="footer-contact" href="/#contact">Contact</a>}
       </footer>
     </div>
   </body>
 </html>
 
 <style>
+  .site-shell--profile { max-width: 48rem; }
   .footer-contact { display: inline-flex; align-items: center; min-height: 1.5rem; font-weight: 650; }
 </style>

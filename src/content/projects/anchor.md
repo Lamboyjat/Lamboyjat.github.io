@@ -24,7 +24,7 @@ homepageTechnologies:
   - "React"
   - "MCP"
   - "Docling"
-homepageContribution: "Co-developed core workflows spanning document ingestion, grounded extraction, engineering canvases, extension discovery, synchronization, security boundaries, and deployment hardening."
+homepageContribution: "I co-developed core workflows spanning document ingestion, grounded extraction, engineering canvases, extension discovery, synchronization, security boundaries, and deployment hardening."
 caseStudyPath: "/work/anchor/"
 engineeringDecisions:
   - "Keep extracted values traceable to source pages and bounding boxes."

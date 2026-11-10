@@ -22,7 +22,7 @@ homepageTechnologies:
   - "PydanticAI"
   - "FMU / FMI"
   - "Evaluation Pipelines"
-homepageContribution: "Implemented and evaluated PydanticAI tool-calling and experiment workflows, while improving debugging, packaging, and repository structure."
+homepageContribution: "I implemented and evaluated PydanticAI tool-calling and experiment workflows, while improving debugging, packaging, and repository structure."
 engineeringDecisions:
   - "Use executable FMU models and tool calls instead of relying on model-only answers."
   - "Evaluate increasingly complex workflows from simulation through system identification and controller tuning."

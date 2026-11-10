@@ -121,6 +121,10 @@ export const meriCaseStudy = {
   period: "2024 to 2025",
   heroLinks: [
     {
+      label: "Open-access paper",
+      url: "https://research.abo.fi/ws/files/72603046/1-s2.0-S2405896325025856-main.pdf",
+    },
+    {
       label: "Published paper",
       url: "https://www.sciencedirect.com/science/article/pii/S2405896325025856",
     },

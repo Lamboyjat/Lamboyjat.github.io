@@ -121,6 +121,10 @@ export const researchPage = {
           url: "https://www.sciencedirect.com/science/article/pii/S2405896325025856",
         },
         {
+          label: "Open-access paper",
+          url: "https://research.abo.fi/ws/files/72603046/1-s2.0-S2405896325025856-main.pdf",
+        },
+        {
           label: "Publication record",
           url: "https://research.abo.fi/en/publications/towards-automated-parameter-extraction-from-engineering-documents/",
         },
@@ -267,6 +271,10 @@ export const researchPage = {
         {
           label: "ScienceDirect",
           url: "https://www.sciencedirect.com/science/article/pii/S2405896325025856",
+        },
+        {
+          label: "Open-access paper",
+          url: "https://research.abo.fi/ws/files/72603046/1-s2.0-S2405896325025856-main.pdf",
         },
         {
           label: "Publication record",

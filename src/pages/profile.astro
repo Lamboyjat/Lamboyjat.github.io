@@ -1,0 +1,105 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { aboutPage } from "../data/about";
+import { researchPage } from "../data/research";
+import { projectHighlights } from "../data/project-highlights";
+
+const projects = (await getCollection("projects", ({ data }) => data.featured && data.verificationStatus === "verified"))
+  .sort((a, b) => a.data.order - b.data.order);
+const publications = researchPage.publications.filter((item) => item.type !== "Master's thesis");
+const sections = [
+  { id: "biography", title: "Biography" },
+  { id: "work", title: "Selected work" },
+  { id: "education", title: "Education" },
+  { id: "research", title: "Research" },
+  { id: "contact", title: "Contact" },
+];
+---
+
+<BaseLayout
+  title="Lamin Jatta | Simple profile"
+  description="A short introduction to Lamin Jatta's AI software engineering, collaborative research, selected projects, and two master's degrees in Computer Science."
+  simpleProfile
+>
+  <article class="simple-profile">
+    <header class="profile-header">
+      <h1>Lamin Jatta</h1>
+      <p class="profile-role">AI Software Engineer & Researcher</p>
+      <nav class="profile-links" aria-label="Profile sections">
+        {sections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
+      </nav>
+    </header>
+
+    <section id="biography" aria-labelledby="biography-title">
+      <h2 id="biography-title">Biography</h2>
+      <p>{aboutPage.introduction[0]}</p>
+      <p>My background spans software development, systems administration, data science, and machine learning. <a href="/about/">Experience and professional background</a>.</p>
+    </section>
+
+    <section id="work" aria-labelledby="work-title">
+      <h2 id="work-title">Selected work</h2>
+      {projects.map((project) => (
+        <p class="profile-project">
+          <strong>{project.data.shortTitle}.</strong>{" "}
+          {project.data.summary}{" "}
+          {project.data.homepageContribution ?? project.data.contribution}{" "}
+          {project.data.caseStudyPath && <><a href={project.data.caseStudyPath}>Case study</a>{" · "}</>}
+          {projectHighlights[project.id]?.links.map((link, index, links) => (
+            <><a href={link.url}>{link.label}</a>{index < links.length - 1 ? " · " : "."}</>
+          ))}
+        </p>
+      ))}
+    </section>
+
+    <section id="education" aria-labelledby="education-title">
+      <h2 id="education-title">Education</h2>
+      {aboutPage.education.map((item) => {
+        const thesisRecord = item.links.find((link) => link.url.startsWith("https://"));
+        return (
+          <div class="profile-education">
+            <h3>{item.qualification}</h3>
+            <p class="profile-institution">{item.institution} · {item.period}</p>
+            <p>{item.detail}{" "}{thesisRecord && <a href={thesisRecord.url}>{thesisRecord.label}</a>}</p>
+          </div>
+        );
+      })}
+    </section>
+
+    <section id="research" aria-labelledby="research-title">
+      <h2 id="research-title">Research and publications</h2>
+      <ul class="profile-publications">
+        {publications.map((publication) => {
+          const source = publication.links.find((link) => link.label === "Open-access paper") ?? publication.links[0];
+          return <li><a href={source.url}>{publication.title}</a>. <span>{publication.type}, {publication.year}. {publication.venue}.</span></li>;
+        })}
+      </ul>
+      <p><a href="/research/#publications-title">Publications, methods, and evaluation findings</a>.</p>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <nav class="profile-links" aria-label="Contact and profiles">
+        {aboutPage.contact.links.map((link) => <a href={link.url}>{link.label}</a>)}
+      </nav>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .simple-profile { padding-block: var(--space-heading); }
+  .profile-header { padding-bottom: var(--space-heading); border-bottom: 1px solid var(--line); }
+  h1 { margin-bottom: 0.5rem; font-size: var(--type-page-title); }
+  .profile-role { margin-bottom: 1rem; color: var(--ink-soft); }
+  .profile-links { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+  .profile-links a { display: inline-flex; min-height: 2rem; align-items: center; }
+  section { margin-top: var(--space-heading); scroll-margin-top: 1rem; }
+  h2 { margin-bottom: 0.75rem; font-size: 1.2rem; line-height: 1.4; letter-spacing: normal; }
+  h3 { margin-bottom: 0; font-size: 1rem; line-height: 1.6; letter-spacing: normal; }
+  a { color: var(--accent-dark); overflow-wrap: anywhere; }
+  p { margin-bottom: 1rem; }
+  .profile-education + .profile-education { margin-top: 1.25rem; }
+  .profile-institution { margin-bottom: 0.5rem; color: var(--ink-soft); }
+  .profile-publications { display: grid; gap: 0.75rem; padding-left: 1.25rem; }
+  .profile-publications span { color: var(--ink-soft); }
+</style>

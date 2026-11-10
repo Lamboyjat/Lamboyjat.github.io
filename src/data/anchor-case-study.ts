@@ -76,7 +76,7 @@ export const anchorCaseStudy = {
     contribution:
       "I worked on source-grounded extraction, shared runtime composition, synchronization, extension discovery, and environment-owned data boundaries. Christoffer and I co-developed the platform; he built the v2 hexagonal foundation, and the wider project is shared Novia work.",
     approach:
-      "People and agents use the same project runtime through the canvas, HTTP, MCP, and CLI. Extracted values retain document source regions. The application is local-first and single-tenant, with one server process writing project state.",
+      "People and agents work with the same project data through the canvas, HTTP, MCP, and CLI. Each process composes its own runtime from shared services. Extracted values retain source regions, and persisted canvas events carry changes to the browser.",
     result:
       "An open-source engineering workspace with inspectable source links and executable tools. The repository contains the implementation and tests; Novia's project story describes the collaborative work.",
   },
@@ -85,8 +85,8 @@ export const anchorCaseStudy = {
     "ANCHOR brings technical documents, extracted knowledge, agent actions, and simulation work into one shared workspace, with links back to the source material.",
   role: "Co-developer / substantial contributor",
   organization: "Novia UAS · Novia-RDI-Seafaring",
-  period: "Nov 2025 to Aug 2026",
-  snapshot: "Current architecture reviewed at main · 42ff01d · 1 Sep 2026",
+  period: "Nov 2025 to Oct 2026",
+  snapshot: "Architecture documentation and October contributions reviewed at main · ad31f3930c63c7300b991cd8e72bc2e2949cd4dd · 11 Nov 2026",
   heroLinks: [
     {
       label: "Repository",
@@ -135,7 +135,7 @@ export const anchorCaseStudy = {
         title: "Shared project runtime",
         role: "Application boundary",
         detail:
-          "ProjectRuntime builds the services for one project. WorkspaceService handles mutations, with per-workspace locks, an event reducer, durable snapshots, and domain events.",
+          "ProjectRuntime composes services for one resolved project within each process. WorkspaceService handles mutations, with per-workspace locks, an event reducer, durable snapshots, and domain events. The HTTP process tails persisted events from CLI and MCP writes.",
         technologies: ["Python 3.12", "Pydantic", "async services", "import-linter"],
       },
       {
@@ -164,7 +164,7 @@ export const anchorCaseStudy = {
       },
     ],
     boundaryNote:
-      "ANCHOR currently runs as a single-tenant local application. HTTP has no authentication, and workspace locks only coordinate work inside one process. One server process must write to a shared project directory.",
+      "ANCHOR is a single-tenant local application. HTTP is unauthenticated and defaults to loopback. Workspace locks coordinate one process, so separate processes must avoid simultaneous writes to the same canvas. File-based updates do not provide a distributed transaction lock.",
   },
   attribution: {
     lamin:
@@ -181,7 +181,7 @@ export const anchorCaseStudy = {
       problem:
         "Coarse table and page extraction can detach an engineering value from the exact cells and visual region that support it.",
       work:
-        "I implemented cell-granular table regions and worked on row- and value-level PDF provenance. I also fixed source highlighting and evidence-edge behavior in the canvas.",
+        "I implemented cell-granular table regions and worked on row- and value-level PDF provenance. I also fixed source highlighting and evidence-edge behavior in the canvas. Later, I used page geometry and document grouping to select table captions, while preserving ambiguous rows as data.",
       significance:
         "The work kept extracted values tied to inspectable source content when they were added to a canvas or specification table.",
       evidence: [
@@ -197,6 +197,10 @@ export const anchorCaseStudy = {
           label: "Value-level PDF provenance",
           url: commitUrl("824e0eca826f5a8f2472db7c3a221020304dd016"),
         },
+        {
+          label: "Layout-grounded table captions and regression tests",
+          url: commitUrl("e06e8efdfaeab83eb4d3e1ee7d79e1f35feb6787"),
+        },
       ],
     },
     {
@@ -207,7 +211,7 @@ export const anchorCaseStudy = {
       work:
         "I refactored project composition around ProjectRuntime, simplified service boundaries, added per-workspace mutation locks, and connected external canvas events to the SSE update path.",
       significance:
-        "The same runtime now serves human and agent operations. Within one process, ANCHOR serializes a complete workspace mutation while other workspaces can continue.",
+        "Human and agent operations use the same service implementations and persistence format. Within one process, ANCHOR serializes a complete workspace mutation while other workspaces can continue. Persisted events carry updates between processes.",
       evidence: [
         {
           label: "ProjectRuntime composition",
@@ -229,7 +233,7 @@ export const anchorCaseStudy = {
       problem:
         "Extension metadata and runtime wiring were duplicated across adapters, increasing the risk that the CLI, HTTP, and MCP surfaces exposed different capabilities.",
       work:
-        "I centralized manifest discovery and worked on consistent runtime support across HTTP, MCP, and CLI. I also added operation descriptors, a wire-schema snapshot, and registration-path validation.",
+        "I centralized manifest discovery and worked on consistent runtime support across HTTP, MCP, and CLI. I also added operation descriptors, a wire-schema snapshot, and registration-path validation. Later, I added JSON Schema validation before MCP dispatch so invalid arguments are rejected before project or thread state changes.",
       significance:
         "The refactoring reduced duplicated adapter logic and kept producer-specific infrastructure outside the canvas domain.",
       evidence: [
@@ -244,6 +248,10 @@ export const anchorCaseStudy = {
         {
           label: "Manifest path validation",
           url: commitUrl("0fe9d84e7f5d1ceea4e86cdc8b28c77f3f8470f8"),
+        },
+        {
+          label: "MCP input validation and regression tests",
+          url: commitUrl("82271b9b5e9e5ac12fcdc30efb8c40b411afcadf"),
         },
       ],
     },
@@ -276,7 +284,7 @@ export const anchorCaseStudy = {
     {
       title: "One domain path, several interfaces",
       decision:
-        "ANCHOR keeps transport code outside the canvas core. UI, HTTP, MCP, and CLI operations go through shared services and one project composition root.",
+        "ANCHOR keeps transport code outside the canvas core. HTTP, MCP, and CLI compose their project runtimes from the same service implementations and persistence format.",
       tradeoff:
         "The ports, runtime profiles, and adapter contracts add structure. In return, behavior stays in one place, and small CLI operations can skip the heavier ingestion dependencies.",
       attribution: "Christoffer and I worked on the current v2 architecture. My contribution here focused on runtime composition and keeping the adapters aligned.",
@@ -292,9 +300,9 @@ export const anchorCaseStudy = {
     {
       title: "Portable files before managed infrastructure",
       decision:
-        "ANCHOR stores documents, canvas snapshots, and append-only events as project-local files. An in-process bus and per-workspace locks coordinate live updates.",
+        "ANCHOR stores documents, canvas snapshots, and append-only events as project-local files. An in-process bus coordinates local updates; the HTTP process also tails persisted events from CLI and MCP writes.",
       tradeoff:
-        "Projects are inspectable, movable, and require no database, but multi-process writes are deliberately unsupported and a single process remains authoritative.",
+        "Projects are inspectable, movable, and require no database. Locks remain process-local, so independent processes must avoid writing to the same canvas simultaneously.",
       attribution: "This is an ANCHOR system decision. I added the per-workspace mutation locks used by the current runtime.",
     },
     {
@@ -302,7 +310,7 @@ export const anchorCaseStudy = {
       decision:
         "ANCHOR resolves the provider and endpoint policy at the environment boundary before it builds model clients. Projects cannot redirect or weaken that policy.",
       tradeoff:
-        "Setup is more explicit and local mode omits gold extraction without a local or harness provider, but credentials cannot silently turn a local project into a remote-data workflow.",
+        "Setup is explicit, and local-only extraction does not run the model-assisted gold stage. A connected harness can still retrieve document content and send it to its own model provider, so its data policy also matters.",
       attribution: "I implemented this boundary with tests and updated the shared runtime and documentation.",
     },
     {
