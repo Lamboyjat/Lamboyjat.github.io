@@ -8,8 +8,17 @@ import { projectHighlights } from "../data/project-highlights";
 const projects = (await getCollection("projects", ({ data }) => data.featured && data.verificationStatus === "verified"))
   .sort((a, b) => a.data.order - b.data.order);
 const publications = researchPage.publications.filter((item) => item.type !== "Master's thesis");
+const selectedOrganizations = new Set([
+  "Novia University of Applied Sciences",
+  "JUICER",
+  "SUPPLYZ Oy (now RESONIKS)",
+  "Guaranty Trust Bank (Gambia) Ltd",
+  "Xanda Limited",
+]);
+const selectedExperience = aboutPage.experience.filter((item) => selectedOrganizations.has(item.organization));
 const sections = [
   { id: "biography", title: "Biography" },
+  { id: "experience", title: "Experience" },
   { id: "work", title: "Selected work" },
   { id: "education", title: "Education" },
   { id: "research", title: "Research" },
@@ -34,7 +43,17 @@ const sections = [
     <section id="biography" aria-labelledby="biography-title">
       <h2 id="biography-title">Biography</h2>
       <p>{aboutPage.introduction[0]}</p>
-      <p>My background spans software development, systems administration, data science, and machine learning. <a href="/about/">Experience and professional background</a>.</p>
+      <p>My background spans software development, systems administration, data science, and machine learning.</p>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-title">
+      <h2 id="experience-title">Selected experience</h2>
+      <ul class="profile-experience">
+        {selectedExperience.map((item) => (
+          <li><strong>{item.role}</strong>, {item.organization}. <span>{item.period}</span>.</li>
+        ))}
+      </ul>
+      <p><a href="/about/#experience-title">Full experience and professional background <span aria-hidden="true">→</span></a></p>
     </section>
 
     <section id="work" aria-labelledby="work-title">
@@ -100,6 +119,8 @@ const sections = [
   p { margin-bottom: 1rem; }
   .profile-education + .profile-education { margin-top: 1.25rem; }
   .profile-institution { margin-bottom: 0.5rem; color: var(--ink-soft); }
-  .profile-publications { display: grid; gap: 0.75rem; padding-left: 1.25rem; }
-  .profile-publications span { color: var(--ink-soft); }
+  .profile-publications,
+  .profile-experience { display: grid; gap: 0.75rem; padding-left: 1.25rem; }
+  .profile-publications span,
+  .profile-experience span { color: var(--ink-soft); }
 </style>
