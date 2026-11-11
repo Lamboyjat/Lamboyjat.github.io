@@ -35,8 +35,9 @@ const sections = [
     <header class="profile-header">
       <h1>Lamin Jatta</h1>
       <p class="profile-role">AI Software Engineer & Researcher</p>
-      <nav class="profile-links" aria-label="Profile sections">
+      <nav class="profile-links" aria-label="Profile navigation">
         {sections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
+        <a href="/cv/lamin-jatta-cv.pdf" download="Lamin-Jatta-CV.pdf">Download CV (PDF)</a>
       </nav>
     </header>
 
